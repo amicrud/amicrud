@@ -39,12 +39,12 @@
             {{-- @dd($show_actions,isset($edit_model),$edit_model) --}}
             @if(isset($edit_model)&&$edit_model)
             <div class="edit">
-                <button class="btn btn-sm btn-success edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal" data-url="{{sign_url(route($form_edit_route,$c->id))}}" data-name="{{Str::singular($model_name)}}">Edit</button>
+                <button class="btn btn-sm btn-success edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal" data-url="{{sign_url(route($form_edit_route,$c->id))}}" data-name="{{Str::singular($crud_name)}}">Edit</button>
             </div>
             @endif
             @if(isset($delete_model)&&$delete_model)
             <div class="remove">
-                <button class="btn btn-sm btn-danger remove-item-btn"  data-url="{{sign_url(route($form_delete_route,$c->id))}}" data-name="{{Str::singular($model_name)}}">Remove</button>
+                <button class="btn btn-sm btn-danger remove-item-btn"  data-url="{{sign_url(route($form_delete_route,$c->id))}}" data-name="{{Str::singular($crud_name)}}">Remove</button>
             </div>
             @endif
         </div>

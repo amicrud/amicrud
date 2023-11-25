@@ -119,7 +119,7 @@ class AmiCrud extends Controller
     /**
      * @var string Name of the model associated with CRUD operations.
      */
-    public $model_name;
+    public $crud_name;
 
     /**
      * @var \Illuminate\Database\Eloquent\Model Instance of the model for CRUD operations.
@@ -240,9 +240,9 @@ class AmiCrud extends Controller
 
      */
 
-   public function model_name(): string
+   public function crud_name(): string
    {
-       return $this->model_name;
+       return $this->crud_name;
    }
 
    /**
@@ -583,7 +583,7 @@ class AmiCrud extends Controller
               'list_contents' => $list_contents,
               'formable' =>  $this->formable(),
               'form_view' => $this->form_view(),
-              'model_name'=> $this->model_name(),
+              'crud_name'=> $this->crud_name(),
               'show_actions'=> $this->show_actions(),
               'view_url' => $this->view_url(),
               'list_target_route' => $this->list_target_route(),
@@ -634,7 +634,7 @@ class AmiCrud extends Controller
         $data = [
            'model' => $model,
            'model_action' => 'Update',
-           'model_name' => $this->model_name(),
+           'crud_name' => $this->crud_name(),
            'form_create_route' => $this->form_create_route(),
            'form_id' => $this->form_id(),
            'form_field_names' => $this->form_field_names(),
@@ -710,7 +710,7 @@ class AmiCrud extends Controller
 
         if($list_contents){
         $data = [
-           'model_name'=> $this->model_name(),
+           'crud_name'=> $this->crud_name(),
            'formable' => $this->formable(),
            'form_view' => $this->form_view(),
            'list_contents' => $list_contents,
@@ -811,7 +811,7 @@ class AmiCrud extends Controller
         }
         foreach($request->all($this->fillable()) as $req => $value){
             if (empty($request->file($req)) || !$request->file($req) instanceof UploadedFile ) {continue;}
-            $validated[$req] = gallery_file_upload($request->file($req),$this->model_name());
+            $validated[$req] = gallery_file_upload($request->file($req),$this->crud_name());
         }
         
         $model = $this->model()->where('id', $validated['id'])->first();

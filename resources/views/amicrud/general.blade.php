@@ -1,16 +1,16 @@
 
 @extends($page_layout)
-@section('title') {{form_labels($model_name)}} @endsection
+@section('title') {{form_labels($crud_name)}} @endsection
 @section('content')
 
     <div class="row">
         <div class="add-listing-headline">
-            <h3>{{form_labels($model_name)}}</h3>
+            <h3>{{form_labels($crud_name)}}</h3>
         </div>
         
       <div class="card w-100">
         <div class="card-body">
-            <h4 class="mt-0 header-title">List Of {{form_labels($model_name)}}</h4>
+            <h4 class="mt-0 header-title">List Of {{form_labels($crud_name)}}</h4>
            <div class="row">
             <div class="col-md-3 p-0">
                 <div class="card-footer bg-white p-0">
@@ -23,7 +23,7 @@
 
             <div class="col-md-9 p-0">
                 @include("amicrud::amicrud.shared.alert")
-                {{-- <h4 class="mt-0 header-title">Create {{form_labels($model_name)}}</h4> --}}
+                {{-- <h4 class="mt-0 header-title">Create {{form_labels($crud_name)}}</h4> --}}
                 <div class="row ml-1">
                     @if($form_info)
                     <p class=" alert-info p-2 rounded">

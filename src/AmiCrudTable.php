@@ -39,7 +39,7 @@ class AmiCrudTable extends AmiCrud{
         $data = [
            'model' => $model,
            'model_action' => 'Update',
-           'model_name' => $this->model_name(),
+           'crud_name' => $this->crud_name(),
            'form_create_route' => $this->form_create_route(),
            'form_id' => $this->form_id(),
            'form_field_names' => $this->form_field_names(),
@@ -65,7 +65,7 @@ class AmiCrudTable extends AmiCrud{
             'form_create_route' => $this->form_create_route(),
             'form_id' => $this->form_id(),
             'model_action' => 'Create',
-            'model_name' => $this->model_name(),
+            'crud_name' => $this->crud_name(),
             'form_field_names' => $this->form_field_names(),
             'form_view' => $this->form_view(),
             'formable' => $this->formable(),
@@ -167,7 +167,7 @@ class AmiCrudTable extends AmiCrud{
         if($list_contents){
         $display_field = $request->has('export') ? $this->export_field() : $this->display_field();
         $data = [
-           'model_name'=> $this->model_name(),
+           'crud_name'=> $this->crud_name(),
            'formable' => $this->formable(),
            'list_contents' => $list_contents,
            'form_target' => $this->form_target(),

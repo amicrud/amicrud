@@ -1,5 +1,5 @@
 @extends($page_layout)
-@section('title', form_labels($model_name))
+@section('title', form_labels($crud_name))
 @section('content')
     <div class="row">
         <div class="col">
@@ -15,7 +15,7 @@
                                     {{(isset($edit_model)&&$edit_model) ? ', Edit' :'' }}
                                     {{(isset($delete_model)&&$delete_model) ? '& Delete ' :'' }}
                                      
-                                    {{form_labels($model_name)}}</h4>
+                                    {{form_labels($crud_name)}}</h4>
                             </div><!-- end card header -->
 
                             <div class="card-body">
@@ -25,7 +25,7 @@
                                         <div class="col-sm">
                                             <div class="d-inline-flex">
                                                 @if(isset($add_model)&&$add_model)
-                                                    <button type="button" class="btn btn-success add-btn d-ruby mr-2 pr-4" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal" data-name="{{Str::singular($model_name)}}" data-url="{{sign_url(route($form_edit_route,'null'))}}"> <span>Add</span> <i class="ri-add-line align-bottom me-1"></i></button>
+                                                    <button type="button" class="btn btn-success add-btn d-ruby mr-2 pr-4" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal" data-name="{{Str::singular($crud_name)}}" data-url="{{sign_url(route($form_edit_route,'null'))}}"> <span>Add</span> <i class="ri-add-line align-bottom me-1"></i></button>
                                                 @endif
                                                
                                                 <!-- Vertical Variation -->

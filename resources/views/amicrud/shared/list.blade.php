@@ -34,13 +34,13 @@
                     @endforelse
                     @if(isset($show_actions) && $show_actions && !isset($export))
                     <td style="display: inline-flex;">
-                        <a class="btn btn-sm btn-danger  delete-details" data-url="{{route($form_delete_route,$c->id)}}" data-name="{{Str::singular($model_name)}}" data-target="{{$form_target}}"><i class="fa fa-trash text-white"></i></a>
+                        <a class="btn btn-sm btn-danger  delete-details" data-url="{{route($form_delete_route,$c->id)}}" data-name="{{Str::singular($crud_name)}}" data-target="{{$form_target}}"><i class="fa fa-trash text-white"></i></a>
 
-                        <a class="btn btn-sm btn-success edit-details" data-url="{{route($form_edit_route,$c->id)}}" data-name="{{Str::singular($model_name)}}" data-target="{{$form_target}}" ><i class="fa fa-pencil text-white"></i></a>
+                        <a class="btn btn-sm btn-success edit-details" data-url="{{route($form_edit_route,$c->id)}}" data-name="{{Str::singular($crud_name)}}" data-target="{{$form_target}}" ><i class="fa fa-pencil text-white"></i></a>
                     </td>
                     @else
                     <td>
-                    <a class="btn btn-sm btn-success edit-details" data-url="{{route($form_edit_route,$c->id)}}" data-name="{{Str::singular($model_name)}}" data-target="{{$form_target}}" ><i class="fa fa-pencil text-white"></i></a>
+                    <a class="btn btn-sm btn-success edit-details" data-url="{{route($form_edit_route,$c->id)}}" data-name="{{Str::singular($crud_name)}}" data-target="{{$form_target}}" ><i class="fa fa-pencil text-white"></i></a>
                    </td>
                     @endif
                 </tr>

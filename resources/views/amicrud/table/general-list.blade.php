@@ -1,6 +1,6 @@
 @extends($page_layout)
-@section('title', form_labels($model_name))
-@section('page-title') {{form_labels($model_name)}} @endsection
+@section('title', form_labels($crud_name))
+@section('page-title') {{form_labels($crud_name)}} @endsection
 @section('breadcrumb')
 @endsection
 @section('content')

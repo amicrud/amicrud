@@ -2,6 +2,7 @@
 
 namespace AmiCrud\AmiCrud;
 
+use AmiCrud\AmiCrud\Commands\AmiCrudCommand;
 use Illuminate\Support\ServiceProvider;
 
 class AmiCrudServiceProvider extends ServiceProvider
@@ -40,10 +41,11 @@ class AmiCrudServiceProvider extends ServiceProvider
             return new AmiCrudTable();
         });
 
-        // $this->app->scoped('amicrudtable', function (): AmiCrudTable {
-        //     return new AmiCrudTable();
-        // });
-        // $this->app->bind(AmiCrudTable::class);
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                AmiCrudCommand::class,
+            ]);
+        }
 
     }
 }

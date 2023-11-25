@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace AmiCrud\AmiCrud\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
@@ -31,11 +31,17 @@ class AmiCrudCommand extends Command
         // Extracting the namespace and class name from the controller path
         $controllerSegments = explode('/', $controllerPath);
         $controllerName = array_pop($controllerSegments);
-        $controllerNamespace = "App\\Http\\Controllers\\" . implode('\\', $controllerSegments);
+
+        if ($controllerSegments) {
+            $controllerNamespace = "App\\Http\\Controllers\\" . implode('\\', $controllerSegments);
+        }else{
+            $controllerNamespace = "App\\Http\\Controllers";
+        }
+
         $modelNamespace = $model ? "App\\Models\\$model" : null;
         // $this->info("controllerName");
         // Read the stub file
-        $stubPath = resource_path('stubs/controller.stub');
+        $stubPath = __DIR__ . '/../../resources/stubs/controller.stub';
         $stubContent = file_get_contents($stubPath);
     
         // Define replacements
