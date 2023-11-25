@@ -2,7 +2,7 @@
     "name": "amicrud/amicrud",
     "description": "AmiCRUD is a streamlined Laravel package that accelerates the development of CRUD interfaces",
     "type": "library",
-    "license": "MIT License",
+    "license": "MIT",
     "authors": [
         {
             "name": "focuslegon",
