@@ -1,0 +1,24 @@
+<?php
+
+namespace DummyNamespace;
+
+use DummyModelNamespace;
+use App\AmiCrud\Package\AmiCrudTable;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+class DummyControllerName extends AmiCrudTable
+{
+    public function __construct(DummyModelName $model){
+        $this->model = $model;
+        $this->model_name = 'DummyModelName';
+
+        $this->index_view = 'amicrud.table.general';
+        $this->main_route = 'dummy_main_route';
+        $this->page_layout = 'layouts.app';
+
+        $this->formable = [
+            DummyFormableArray
+        ];
+    }
+}
