@@ -1,6 +1,6 @@
 <?php
 
-namespace AmiCrud\AmiCrud\Commands;
+namespace AmiCrud\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
@@ -17,11 +17,16 @@ class AmiCrudCommand extends Command
         $formable = $this->option('formable');
         $model = $this->option('model');
 
+        $this->info("<options=bold,reverse;fg=green> Arguments Generated ...10% </>");
+
         // Generate Controller
-        $this->generateController($controllerPath, $formable, $model, $route);
+        $path = $this->generateController($controllerPath, $formable, $model, $route);
 
         // Update Routes
-        if ($route) {
+        if ($path) {
+            $this->info("<options=bold;fg=green>AMICRUD CLASS: </> ".$path);
+        }
+        if ($route&&$path) {
             $this->updateRoutes($route, $controllerPath);
         }
     }
@@ -39,7 +44,6 @@ class AmiCrudCommand extends Command
         }
 
         $modelNamespace = $model ? "App\\Models\\$model" : null;
-        // $this->info("controllerName");
         // Read the stub file
         $stubPath = __DIR__ . '/../../resources/stubs/controller.stub';
         $stubContent = file_get_contents($stubPath);
@@ -58,17 +62,32 @@ class AmiCrudCommand extends Command
         $content = str_replace(array_keys($replacements), array_values($replacements), $stubContent);
     
         // Write the modified content to the desired location
-        File::put(app_path("Http/Controllers/{$controllerPath}.php"), $content);
+        $path = "Http/Controllers/{$controllerPath}.php";
+        $fullPath = app_path($path);
+
+        // Check if the file already exists
+        if (File::exists($fullPath)) {
+            $this->info("The controller '{$controllerPath}' already exists. 😊\n");
+        } else {
+            // Write the modified content to the desired location
+            File::put($fullPath, $content);
+            $this->info("<options=bold,reverse;fg=green> Controller '{$controllerPath}' created successfully. ......100%  </> 🥳🥰🎉\n\n");
+            return "app/".$path;
+        }
+
+     
     }
     
     protected function generateFormableArray($formable)
     {
+       
         $fields = explode(',', $formable);
         $arrayContent = [];
     
         foreach ($fields as $field) {
             $arrayContent[] = "'{$field}' => [],";
         }
+        $this->info("<options=bold,reverse;fg=green> Formables Generated ....30% </>");
     
         return implode("\n            ", $arrayContent);
     }
@@ -76,6 +95,12 @@ class AmiCrudCommand extends Command
 
     protected function updateRoutes($route, $controllerPath)
     {
+        $controllerSegments = explode('/', $controllerPath);
+        $controllerName = array_pop($controllerSegments);
+       
+        $this->info("<options=bold;fg=green>ROUTE:</> ". "Route::resource('/".$route."', ".$controllerName."::class);"); 
+        $this->info("<options=bold;fg=green>LINK:</> ". ' <a href="{{route("'.$route.'")}}">'); 
+
         // $controllerClass = "App\\Http\\Controllers\\" . str_replace('/', '\\', $controllerPath);
         // $routeFilePath = base_path("routes/amicrud.php");
         // $useRouteStatement = "use Illuminate\\Support\\Facades\\Route;\n";

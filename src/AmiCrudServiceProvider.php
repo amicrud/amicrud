@@ -1,8 +1,8 @@
 <?php
 
-namespace AmiCrud\AmiCrud;
+namespace AmiCrud;
 
-use AmiCrud\AmiCrud\Commands\AmiCrudCommand;
+use AmiCrud\Commands\AmiCrudCommand;
 use Illuminate\Support\ServiceProvider;
 
 class AmiCrudServiceProvider extends ServiceProvider
@@ -36,9 +36,6 @@ class AmiCrudServiceProvider extends ServiceProvider
         
         $this->app->singleton('amicrud', function ($app) {
             return new AmiCrud();
-        });
-        $this->app->singleton('amicrudtable', function ($app) {
-            return new AmiCrudTable();
         });
 
         if ($this->app->runningInConsole()) {

@@ -3,11 +3,9 @@
 namespace DummyNamespace;
 
 use DummyModelNamespace;
-use AmiCrud\AmiCrud\AmiCrudTable;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use AmiCrud\AmiCrud;
 
-class DummyControllerName extends AmiCrudTable
+class DummyControllerName extends AmiCrud
 {
     public function __construct(DummyModelName $model){
         $this->model = $model;

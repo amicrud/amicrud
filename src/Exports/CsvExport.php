@@ -1,5 +1,5 @@
 <?php
-namespace Amicrud\Amicrud\Exports;
+namespace AmiCrud\Exports;
 
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -15,13 +15,19 @@ class CsvExport implements FromCollection, WithHeadings
 
     public function collection()
     {
-        // Convert your data to a collection and return it
-        return collect($this->data);
+        return collect($this->data['list_contents'])->map(function ($content) {
+            $dvalue = [];
+            foreach($this->data['display_field'] as $value){
+                $dvalue[$value] = $content->{$value};
+            }
+           return $dvalue;
+        });
     }
 
     public function headings(): array
     {
         // Return the headers as an array
-        return ['Header1', 'Header2', 'Header3']; // Modify as per your data structure
+        return $this->data['display_field'];
     }
+
 }

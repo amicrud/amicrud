@@ -1,11 +1,12 @@
 <?php
 
-namespace AmiCrud\AmiCrud;
+namespace AmiCrud;
 
+use AmiCrud\Exports\CsvExport;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use AmiCrud\AmiCrud\Exports\ViewExport;
-use Amicrud\Amicrud\Exports\CsvExport;
+use AmiCrud\Exports\ViewExport;
+
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\UploadedFile;
 use Maatwebsite\Excel\Facades\Excel;
@@ -92,7 +93,7 @@ class AmiCrud extends Controller
     public $form_select_items;
 
     /**
-     * @var array Additional information for form fields, like help text or placeholders.
+     * @var string Additional information for crud page
      */
     public $form_info;
 
@@ -132,6 +133,25 @@ class AmiCrud extends Controller
     public $custom_model_query;
 
     /**
+     * @var array add addtional data to the index page.
+     */
+    public $index_data;
+      /**
+     * @var array add addtional data to the index page.
+     */
+    public $additional_index_data;
+
+    /**
+     * @var array add addtional data to the edit model.
+     */
+    public $additional_edit_data;
+
+     /**
+     * @var array add addtional data to the create model.
+     */
+    public $additional_create_data;
+
+    /**
      * @var string Unique identifier for forms, useful for targeting in JavaScript.
      */
     public $form_id;
@@ -146,13 +166,37 @@ class AmiCrud extends Controller
      */
     public $list_target;
 
+    /**
+     * @var array Allow model record actions .
+     */
     public $show_actions;
+     /**
+     * @var array Add a view url button to view record .
+     */
     public $view_url;
+     /**
+     * @var string List target route .
+     */
     public $list_target_route;
+      /**
+     * @var string List target route .
+     */
     public $main_route;
+      /**
+     * @var string route for displaying table records, this route hit the create method bedefalut .
+     */
     public $form_create_route;
+      /**
+     * @var string Route for the page to display the crud .
+     */
     public $index_route;
+     /**
+     * @var string Route for showing the editing form
+     */
     public $form_edit_route;
+     /**
+     * @var string Route for deleting record.
+     */
     public $form_delete_route;
 
     /**
@@ -251,7 +295,7 @@ class AmiCrud extends Controller
      * @return mixed The model instance.
      */
 
-   public function model(): mixed
+   public function model(): \Illuminate\Database\Eloquent\Model
    {
        return $this->custom_model_query() ? $this->custom_model_query() : $this->model;
    }
@@ -264,7 +308,7 @@ class AmiCrud extends Controller
    public function fillable(): mixed
     {
         $fillable = [];
-        $forms = array_merge($this->custom_form_hidden_input(),$this->formable());
+        $forms = array_merge($this->custom_form_hidden_input()??[],$this->formable()??[]);
         foreach ($forms as $key => $value) {
             if(!safe_array_access($value,['fillable'])){ continue; }
             $fillable[]=$key;
@@ -573,186 +617,265 @@ class AmiCrud extends Controller
     }
 
 
+    public function index_data():array
+    {
+       $contents = [
+            'list_contents' => $this->model,
+            'formable' =>  $this->formable(),
+            'form_view' => $this->form_view(),
+            'crud_name'=> $this->crud_name(),
+            'show_actions'=> $this->show_actions(),
+            'view_url' => $this->view_url(),
+            'list_target_route' => $this->list_target_route(),
+            'form_create_route' => $this->form_create_route(),
+            'form_edit_route' => $this->form_edit_route(),
+            'form_delete_route' => $this->form_delete_route(),
+            'form_info' => $this->form_info(),
+            'form_id' => $this->form_id(),
+            'form_target' => $this->form_target(),
+            'page_layout' => $this->page_layout(),
+            'form_field_names' => $this->form_field_names(),
+            'form_update' => false,
+            'form_select_items' => $this->form_select_items(),
+            'custom_form_hidden_input' => $this->custom_form_hidden_input(),
+            'controls' => $this->controls(),
+            'display_field' => $this->display_field(),
+            'search_date_from' => $this->search_date_from(),
+            'search_date_to' => $this->search_date_to(),
+            'search_date_width' => $this->search_date_width(),
+            'add_model' => $this->add_model(),
+            'export_model' => $this->export_model(),
+            'paginate_model' => $this->paginate_model(),
+            'edit_model' => $this->edit_model(),
+            'delete_model' => $this->delete_model(),
+        ] ;
+
+        return array_merge($contents??[],$this->index_data??[],$this->additional_index_data()??[]);
+    }
+
+    public function additional_index_data():array
+    {
+      return  $this->additional_index_data??[];
+    }
+
+
     public function index(Request $request) :mixed
     {
           if($request->has('export')){
             return $this->export($request);
           }
-        $list_contents = $this->model;
-        $content = [
-              'list_contents' => $list_contents,
-              'formable' =>  $this->formable(),
-              'form_view' => $this->form_view(),
-              'crud_name'=> $this->crud_name(),
-              'show_actions'=> $this->show_actions(),
-              'view_url' => $this->view_url(),
-              'list_target_route' => $this->list_target_route(),
-              'form_create_route' => $this->form_create_route(),
-              'form_edit_route' => $this->form_edit_route(),
-              'form_delete_route' => $this->form_delete_route(),
-              'form_info' => $this->form_info(),
-              'form_id' => $this->form_id(),
-              'form_target' => $this->form_target(),
-              'page_layout' => $this->page_layout(),
-              'form_field_names' => $this->form_field_names(),
-              'form_update' => false,
-              'form_select_items' => $this->form_select_items(),
-              'custom_form_hidden_input' => $this->custom_form_hidden_input(),
-              'controls' => $this->controls(),
-              'display_field' => $this->display_field(),
-              'search_date_from' => $this->search_date_from(),
-              'search_date_to' => $this->search_date_to(),
-              'search_date_width' => $this->search_date_width(),
-              'add_model' => $this->add_model(),
-              'export_model' => $this->export_model(),
-              'paginate_model' => $this->paginate_model(),
-              'edit_model' => $this->edit_model(),
-              'delete_model' => $this->delete_model(),
-          ] ;
+        $content = $this->index_data();
           
         return view($this->index_view())->with($content);
     }
 
 
-        /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Request $request, $id) : mixed
+    public function additional_edit_data():array
     {
-        if (!$this->edit_model()) {return null;}
-        // verify url signature
-        $verificationResponse = $this->verify_sign_url($request);
-        if ($verificationResponse !== null) {
-            return $verificationResponse;
-        }
-
-        $model= $this->model()->find($id);
-        if($model){
-        $data = [
-           'model' => $model,
-           'model_action' => 'Update',
-           'crud_name' => $this->crud_name(),
-           'form_create_route' => $this->form_create_route(),
-           'form_id' => $this->form_id(),
-           'form_field_names' => $this->form_field_names(),
-           'form_view' => $this->form_view(),
-           'formable' => $this->formable(),
-           'form_update' => true,
-           'form_select_items' => $this->form_select_items(),
-           'custom_form_hidden_input' => $this->custom_form_hidden_input(),
-           'controls' => $this->controls(),
-         ];
-        
-         if ($request->ajax()) {
-            $res = view($this->form_view(),$data)->render();
-            return response()->json($res);
-         }
-          return view("amicrud::amicrud.table.form-page",$data);
-       }else{
-         if ($request->ajax()) {
-            return response()->json(['status'=>'error', 'message' => ('Could not edit request.')]); 
-         } 
-        else{
-            return response()->back()->with('error', ('Could not edit request.')); 
-        }    
-       }
+      return  $this->additional_edit_data;
     }
-
-
-
-         /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request ) : mixed
-    {
-         // verify url signature
-         if ($request->has('search')) {
-            $verificationResponse = $this->verify_sign_url($request);
-            if ($verificationResponse !== null) {
-                return $verificationResponse;
-            }
-        }
-
-
-        $validator = Validator::make($request->all(), [
-            'search' => 'nullable|string|max:255',
-            'export' => 'nullable|string|max:255',
-            'export-type' => 'nullable|string|max:255',
-        ]);
     
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 400);
-        }
+
+           /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+     /** 
+         *** the select_items uses {key => value} array format , 
+               the key is the {option value} and value will be displayed for view. 
+               Therefore your array should be {(string) key } 
+               and {(string) value}. It should be null if the form is not select
+
+         *** form_field_name null will pick the formable key
+
+         *** display_field null means it will not show in the table display
+         */
         
-
-        if($request->filled('search') && !empty($this->display_field())) {
-            $search = $request->search;
-            $displays = array_keys($this->display_field());
-            $list_contents = $this->model()->where(function($q) use($displays,$search){
-                 $q->where($displays[0], 'like', '%' . $search . '%');
-                 if (count($displays)>1) {
-                    for ($i = 1; $i < count($displays); $i++) {
-                        $q->orWhere($displays[$i], 'like', '%' . $search . '%');
-                    }
+         public function edit(Request $request, $id) : mixed
+         {
+     
+              // verify url signature
+              $verificationResponse = $this->verify_sign_url($request);
+              if ($verificationResponse !== null) {
+                  return $verificationResponse;
+              }
+     
+             $model= $this->model()->find($id);
+             if($model){
+               
+             $data = [
+                'model' => $model,
+                'model_action' => 'Update',
+                'crud_name' => $this->crud_name(),
+                'form_create_route' => $this->form_create_route(),
+                'form_id' => $this->form_id(),
+                'form_field_names' => $this->form_field_names(),
+                'form_view' => $this->form_view(),
+                'formable' => $this->formable(),
+                'page_layout' => $this->page_layout(),
+                'form_update' => true,
+                'form_select_items' => $this->form_select_items(),
+                'custom_form_hidden_input' => $this->custom_form_hidden_input(),
+                'controls' => $this->controls(),
+              ];
+              $data = array_merge($data,$this->additional_create_data());
+               if ($request->ajax()) {
+                 $res = view($this->form_view(),$data)->render();
+                  return response()->json($res);
+               }
+               return view("amicrud.table.form-page",$data);
+     
+             } else{
+     
+             // add form
+             $data = [
+                 'form_create_route' => $this->form_create_route(),
+                 'form_id' => $this->form_id(),
+                 'model_action' => 'Create',
+                 'crud_name' => $this->crud_name(),
+                 'form_field_names' => $this->form_field_names(),
+                 'form_view' => $this->form_view(),
+                 'formable' => $this->formable(),
+                 'page_layout' => $this->page_layout(),
+                 'form_update' => false,
+                 'form_select_items' => $this->form_select_items(),
+                 'custom_form_hidden_input' => $this->custom_form_hidden_input(),
+                 'controls' => $this->controls(),
+               ];
+                 if ($request->ajax()) {
+                     $res = view($this->form_view(),$data)->render();
+                     return response()->json($res);  
+                 } 
+               return view("amicrud.table.form-page",$data);
+            }
+         }
+     
+         public function additional_create_data():array
+         {
+           return  $this->additional_edit_data??[];
+         }
+     
+         public function create(Request $request ) : mixed
+         {
+           if ($request->has('search')) {
+               // verify url signature
+               $verificationResponse = $this->verify_sign_url($request);
+               if ($verificationResponse !== null) {
+                   return $verificationResponse;
+               }
+             }
+     
+             $validator = Validator::make($request->all(), [
+               'search' => 'nullable|string|max:255',
+               'export' => 'nullable|string|max:255',
+               'export-type' => 'nullable|string|max:255',
+           ]);
+       
+           if ($validator->fails()) {
+               return response()->json(['errors' => $validator->errors()], 400);
+           }
+             
+             $list_contents = $this->model();
+     
+             $perPage = $request->filled('paginated_number')?$request->paginated_number:default_pagination_number();
+             
+             $startDate = date('Y-m-d',strtotime($request->from_date));
+             $endDate = date('Y-m-d',strtotime($request->to_date));
+     
+             if($request->filled('from_date')&&$request->filled('to_date')&&($startDate!=$endDate)) {
+               $list_contents = $list_contents->whereBetween('created_at', [$startDate, $endDate]);
+     
+             }elseif ($request->filled('from_date')) {
+               $list_contents = $list_contents->whereDate('created_at', '=', $startDate);
+     
+             }elseif ($request->filled('to_date')) {
+               $list_contents = $list_contents->whereDate('created_at', '=', $endDate);
+             }
+       
+     
+             if($request->filled('search') && !empty($this->display_field())) {
+     
+                 $search = $request->search;
+                 $displays = array_keys($this->display_field());
+                 $list_contents = $list_contents->where(function($q) use($displays,$search){
+                      $q->where($displays[0], 'like', '%' . $search . '%');
+                      if (count($displays)>1) {
+                         for ($i = 1; $i < count($displays); $i++) {
+                             $q->orWhere($displays[$i], 'like', '%' . $search . '%');
+                         }
+                      }
+                 })->orderBy('id','desc');
+     
+                 if($request->has('export')){
+                   $list_contents = $list_contents->get();
+                   }else{
+                   $list_contents = $list_contents->paginate($perPage);
+                   }
+     
+             }
+             elseif($request->filled('page')) {
+                 // for pagination
+                 $currentPage = $request->input('page', 1); // Get the current page from the request, default to 1 if not provided
+                 $list_contents = $list_contents->orderBy('id','desc');
+     
+                 if($request->has('export')){
+                   $list_contents = $list_contents->get();
+                   }else{
+                     $list_contents = $list_contents->paginate($perPage, ['*'], 'page', $currentPage);
+                     $list_contents->appends(['page' => $currentPage]);
+                   }
+     
+              }
+             else{
+                 $list_contents = $list_contents->orderBy('id','desc');
+     
+                 if($request->has('export')){
+                 $list_contents = $list_contents->get();
+                 }else{
+                 $list_contents = $list_contents->paginate($perPage);
                  }
-            })->get();
-        }else{
-            $list_contents = $this->model()->all();
-        }
-
-        $display_field = $request->has('export') ? $this->export_field() : $this->display_field();
-
-        if($list_contents){
-        $data = [
-           'crud_name'=> $this->crud_name(),
-           'formable' => $this->formable(),
-           'form_view' => $this->form_view(),
-           'list_contents' => $list_contents,
-           'form_target' => $this->form_target(),
-           'list_target' => $this->list_target(),
-           'show_actions'=> $this->show_actions(),
-           'view_url' => $this->view_url(),
-           'display_field' => $display_field,
-           'form_edit_route' => $this->form_edit_route(),
-           'form_delete_route' => $this->form_delete_route(),
-           'controls' => $this->controls(),
-           'display_field' => $this->display_field(),
-           'search_date_from' => $this->search_date_from(),
-           'search_date_to' => $this->search_date_to(),
-           'search_date_width' => $this->search_date_width(),
-           'add_model' => $this->add_model(),
-           'export_model' => $this->export_model(),
-           'paginate_model' => $this->paginate_model(),
-           'edit_model' => $this->edit_model(),
-           'delete_model' => $this->delete_model(),
-
-         ];
-
-         if($request->has('export')){
-            $data['export'] = true;
-            return [
-                'data' => $data,
-                'export-type' => $request->get('export-type'),
-            ];
-          }
-          $res = view($this->list_view(),$data)->render();
-          $request->merge(['export' => true,]);
-          $res = [
-            'data' => $res,
-            'export_url' => sign_url(route($this->index_route(), $request->query())),
-          ];
-          return response()->json($res);
-       }else{
-         return response()->json(['status'=>'error', 'message' => ('Could not edit request.')]);      
-       }
-    }
-
+             }
+             if($list_contents){
+             $display_field = $request->has('export') ? $this->export_field() : $this->display_field();
+             $data = [
+                'crud_name'=> $this->crud_name(),
+                'formable' => $this->formable(),
+                'list_contents' => $list_contents,
+                'form_target' => $this->form_target(),
+                'list_target' => $this->list_target(),
+                'show_actions'=> $this->show_actions(),
+                'form_view' => $this->form_view(),
+                'view_url' => $this->view_url(),
+                'display_field' => $display_field,
+                'form_edit_route' => $this->form_edit_route(),
+                'form_delete_route' => $this->form_delete_route(),
+                'edit_model' => $this->edit_model(),
+                'delete_model' => $this->delete_model(),
+              ];
+              $data = array_merge($data,$this->additional_create_data());
+              
+              if($request->has('export')){
+               $data['export'] = true;
+                 return [
+                     'data' => $data,
+                     'export-type' => $request->get('export-type'),
+                 ];
+               }
+               $res = view($this->list_view(),$data)->render();
+               
+               $request->merge(['export' => true,]);
+               $res = [
+                 'data' => $res,
+                 'other_data' => null,
+                 'export_url' => sign_url(route($this->index_route(), $request->query())),
+               ];
+               return response()->json($res);
+            }else{
+              return response()->json(['message' => error_message('Could not edit request.')]);      
+            }
+         }
 
 
        /**

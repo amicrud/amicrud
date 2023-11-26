@@ -1,5 +1,5 @@
 <?php
-namespace Amicrud\Amicrud\Exports;
+namespace Amicrud\Exports;
 
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\Exportable;

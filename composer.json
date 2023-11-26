@@ -20,13 +20,13 @@
             "helpers/general.php"
         ],
         "psr-4": {
-            "AmiCrud\\AmiCrud\\": "src/"
+            "AmiCrud\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "AmiCrud\\AmiCrud\\AmiCrudServiceProvider"
+                "AmiCrud\\AmiCrudServiceProvider"
             ]
         }
     },

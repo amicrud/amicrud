@@ -38,7 +38,7 @@
         <div class="d-flex gap-2">
             {{-- @dd($show_actions,isset($edit_model),$edit_model) --}}
             @if(isset($edit_model)&&$edit_model)
-            <div class="edit">
+            <div class="edit mr-2">
                 <button class="btn btn-sm btn-success edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal" data-url="{{sign_url(route($form_edit_route,$c->id))}}" data-name="{{Str::singular($crud_name)}}">Edit</button>
             </div>
             @endif
