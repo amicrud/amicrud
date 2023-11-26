@@ -117,6 +117,12 @@ class AmiCrud extends Controller
      */
     public $page_layout;
 
+
+    /**
+     * @var int Layout configuration for the page, e.g., sidebars, headers, etc.
+     */
+    public $default_pagination_number;
+
     /**
      * @var string Name of the model associated with CRUD operations.
      */
@@ -304,13 +310,18 @@ class AmiCrud extends Controller
    {
        return $this->custom_model_query;
    }
+
+   public function default_pagination_number(): int
+   {
+       return $this->default_pagination_number;
+   }
    
    public function fillable(): mixed
     {
         $fillable = [];
         $forms = array_merge($this->custom_form_hidden_input()??[],$this->formable()??[]);
         foreach ($forms as $key => $value) {
-            if(!safe_array_access($value,['fillable'])){ continue; }
+            if(!$this->safe_array_access($value,['fillable'])){ continue; }
             $fillable[]=$key;
         }
         return $fillable;
@@ -326,6 +337,20 @@ class AmiCrud extends Controller
         // }
     }
 
+
+    public function safe_array_access($array, array $keys=[]) {
+        $value = $array;
+        foreach ($keys as $key) {
+            $key = trim($key, "'\"");
+                if (isset($value[$key])) {
+                    $value = $value[$key];
+                } else {
+                    return null; // Return null if any key is missing
+                }
+            }
+            return $value;
+        }
+     
    
 
     public function formable(): mixed
@@ -779,7 +804,7 @@ class AmiCrud extends Controller
              
              $list_contents = $this->model();
      
-             $perPage = $request->filled('paginated_number')?$request->paginated_number:default_pagination_number();
+             $perPage = $request->filled('paginated_number')?$request->paginated_number:$this->default_pagination_number();
              
              $startDate = date('Y-m-d',strtotime($request->from_date));
              $endDate = date('Y-m-d',strtotime($request->to_date));
@@ -869,11 +894,11 @@ class AmiCrud extends Controller
                $res = [
                  'data' => $res,
                  'other_data' => null,
-                 'export_url' => sign_url(route($this->index_route(), $request->query())),
+                 'export_url' => amicrud_sign_url(route($this->index_route(), $request->query())),
                ];
                return response()->json($res);
             }else{
-              return response()->json(['message' => error_message('Could not edit request.')]);      
+              return response()->json(['message' => amicrud_error_message('Could not edit request.')]);      
             }
          }
 
@@ -934,7 +959,7 @@ class AmiCrud extends Controller
         }
         foreach($request->all($this->fillable()) as $req => $value){
             if (empty($request->file($req)) || !$request->file($req) instanceof UploadedFile ) {continue;}
-            $validated[$req] = gallery_file_upload($request->file($req),$this->crud_name());
+            $validated[$req] = amicrud_gallery_file_upload($request->file($req),$this->crud_name());
         }
         
         $model = $this->model()->where('id', $validated['id'])->first();
@@ -964,7 +989,7 @@ class AmiCrud extends Controller
             if ($this->list_target()&&$this->list_target_route()) {
             return response()->json([ 
                 'status'=>'success', 'message' =>  ('Data Saved Successfully'),
-                'list_target_route' => sign_url(route($this->list_target_route())),
+                'list_target_route' => amicrud_sign_url(route($this->list_target_route())),
                 'list_target' => $this->list_target()
             ]);
             }
@@ -1023,7 +1048,7 @@ class AmiCrud extends Controller
                 return response()->json([ 
                     'status'=>'success',
                     'message' =>  ('Data Deleted Successfully'),
-                    'list_target_route' => sign_url(route($this->list_target_route())),
+                    'list_target_route' => amicrud_sign_url(route($this->list_target_route())),
                     'list_target' => $this->list_target()
                 ]);
                 }
@@ -1033,7 +1058,7 @@ class AmiCrud extends Controller
             }
 
           } catch (\Exception $ex) {
-            log_system_errors($ex);
+            amicrud_log_system_errors($ex);
             return response()->json([
                 'status' => 'error',
                 'message' => $ex->getMessage(),
