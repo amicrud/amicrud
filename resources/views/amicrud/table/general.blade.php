@@ -13,6 +13,16 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     @endif
 
+    @if(config('amicrud.load_dropify'))
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css">
+    @endif
+
+    <style>
+        .amicrud-avatar-xs{
+            width: 40px;
+        }
+    </style>
+
 @endpush
 
 @section('content')
@@ -106,6 +116,16 @@
   @if(config('amicrud.load_bootstrap_datepicker'))
     <!-- Sweet Alerts js -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  @endif
+
+  @if(config('amicrud.load_dropify'))
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
+    <script>
+        $(document).ready(function(){
+          // Initialize
+          $('.dropify').dropify();
+        });
+    </script>
   @endif
 
 @include('amicrud::amicrud.table.js')

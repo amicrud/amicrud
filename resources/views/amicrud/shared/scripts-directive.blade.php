@@ -1,0 +1,1 @@
+@stack('amicrud_js')

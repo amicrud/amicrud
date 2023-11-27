@@ -6,14 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{$title ?? "AmiCrud"}}</title>
-
     @stack('amicrud_css')
-
-     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Custom styles for this template -->
     <style>
         .sidebar {
             min-height: 100vh;
@@ -91,23 +84,6 @@
         </main>
     </div>
 </div>
-
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- Bootstrap Bundle (includes Popper) -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-<!-- Bootstrap Datepicker JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
- <!-- Sweet Alerts js -->
- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
- 
-<script>
-    $('.date-picker').datepicker({ 
-      clearBtn: true,
-      autoclose: true
-    });
-</script>
-
 @stack('amicrud_js')
 </body>
 </html>

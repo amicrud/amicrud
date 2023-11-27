@@ -11,7 +11,7 @@
        @if ($formable[$column_name]['type']=='file')
        <div class="flex-shrink-0">
         <a href="{{asset($c->{$column_name})}}" target="_blank">
-        <img src="{{asset($c->{$column_name})}}" alt="" class="avatar-xs">
+        <img src="{{asset($c->{$column_name})}}" alt="" class="amicrud-avatar-xs">
         </a>
       </div>
       @elseif(in_array($column_name,['status','flow_status','action_status']))

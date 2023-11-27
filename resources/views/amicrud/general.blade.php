@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     @endif
 
+    @if(config('amicrud.load_dropify'))
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css">
+    @endif
+
 @endpush
 
 @section('title') {{amicrud_form_labels($crud_name)}} @endsection
@@ -87,6 +91,16 @@
     <!-- Sweet Alerts js -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   @endif
+
+  @if(config('amicrud.load_dropify'))
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
+  <script>
+      $(document).ready(function(){
+        // Initialize
+        $('.dropify').dropify();
+      });
+  </script>
+@endif
 
 @include('amicrud::amicrud.formsjs')
 
