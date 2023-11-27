@@ -24,7 +24,7 @@ $rowCount = ceil(count($columns) / $numColumnsPerSet);
         <thead>
         <tr class="review-table-th">
             @for ($j = $i * $numColumnsPerSet; $j < min(($i * $numColumnsPerSet) + $numColumnsPerSet, count($columns)); $j++)
-                <th>{{ form_labels($columns[$j]) }}</th>
+                <th>{{ amicrud_form_labels($columns[$j]) }}</th>
             @endfor
         </tr>
         </thead>
@@ -35,7 +35,7 @@ $rowCount = ceil(count($columns) / $numColumnsPerSet);
             @if (in_array($columns[$j],$files))
             <a href="{{asset($values[$j])}}" class="btn btn-sm btn-outline-primary btn-icon-text" target="_blank"><i class="ri-gallery-line  fs-16"></i> view</a>
             @else
-            {{ form_labels($values[$j]) }}
+            {{ amicrud_form_labels($values[$j]) }}
             @endif 
             </td>
             @endfor
@@ -71,7 +71,7 @@ $rowCount = ceil(count($columns) / $numColumnsPerSet);
             <thead>
             <tr class="review-table-th">
                 @for ($j = $i * $numColumnsPerSet; $j < min(($i * $numColumnsPerSet) + $numColumnsPerSet, count($columns)); $j++)
-                    <th>{{ form_labels($columns[$j]) }}</th>
+                    <th>{{ amicrud_form_labels($columns[$j]) }}</th>
                 @endfor
             </tr>
             </thead>
@@ -82,7 +82,7 @@ $rowCount = ceil(count($columns) / $numColumnsPerSet);
                 @if (in_array($columns[$j],$files))
                 <a href="{{asset($values[$j])}}" class="btn btn-sm btn-outline-primary btn-icon-text" target="_blank"><i class="ri-gallery-line  fs-16"></i> view</a>
                 @else
-                {{ form_labels($values[$j]) }}
+                {{ amicrud_form_labels($values[$j]) }}
                 @endif 
                 </td>
                 @endfor

@@ -1,6 +1,6 @@
 @extends($page_layout)
-@section('title', form_labels($crud_name))
-@section('page-title') {{form_labels($crud_name)}} @endsection
+@section('title', amicrud_form_labels($crud_name))
+@section('page-title') {{amicrud_form_labels($crud_name)}} @endsection
 @section('breadcrumb')
 @endsection
 @section('content')
@@ -12,7 +12,7 @@
 
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title mb-0">Add, Edit &amp; Remove {{form_labels($crud_name)}}</h4>
+                                <h4 class="card-title mb-0">Add, Edit &amp; Remove {{amicrud_form_labels($crud_name)}}</h4>
                             </div><!-- end card header -->
 
                             <div class="card-body">
@@ -21,7 +21,7 @@
                                     <div class="row g-4 mb-3">
                                         <div class="col-sm-auto">
                                             <div>
-                                                <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal" data-name="{{Str::singular($crud_name)}}" data-url="{{sign_url(route($form_edit_route,'null'))}}"><i class="ri-add-line align-bottom me-1"></i> Add</button>
+                                                <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal" data-name="{{Str::singular($crud_name)}}" data-url="{{amicrud_sign_url(route($form_edit_route,'null'))}}"><i class="ri-add-line align-bottom me-1"></i> Add</button>
                                                  <!-- Vertical Variation -->
                                                  <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                                                     <div class="btn-group" id="exportGroup" role="group">
@@ -50,7 +50,7 @@
                                     </div>
 
                                     <!-- Table -->
-                                    <div id="table-data" data-list_target_route="{{sign_url(route($list_target_route))}}">
+                                    <div id="table-data" data-list_target_route="{{amicrud_sign_url(route($list_target_route))}}">
                                     </div>
                     </div>
                 </div><!-- end card -->

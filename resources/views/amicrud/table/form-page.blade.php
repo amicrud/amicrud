@@ -1,6 +1,6 @@
 @extends($page_layout)
-@section('title', form_labels($crud_name))
-@section('page-title') {{form_labels($crud_name)}} @endsection
+@section('title', amicrud_form_labels($crud_name))
+@section('page-title') {{amicrud_form_labels($crud_name)}} @endsection
 @section('breadcrumb')
 @endsection
 @section('content')
@@ -12,7 +12,7 @@
 
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title mb-0">{{isset($model_action)?$model_action:'Create/Update'}} {{form_labels($crud_name)}}</h4>
+                                <h4 class="card-title mb-0">{{isset($model_action)?$model_action:'Create/Update'}} {{amicrud_form_labels($crud_name)}}</h4>
                             </div><!-- end card header -->
 
                             <div class="card-body">

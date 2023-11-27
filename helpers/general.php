@@ -85,3 +85,123 @@ if (!function_exists('amicrud_gallery_file_upload')) {
             Log::channel('error_log')->error($e->getMessage(), ['trace' => $e->getTraceAsString()]);
          }
        }
+
+       if (!function_exists('amicrud_form_labels')) { 
+        function amicrud_form_labels($label)
+        {
+           $exp_label = explode('_',$label);
+           $leb = '';
+           foreach ($exp_label as $value) {
+            
+              if ($value=='id') {
+              continue;
+              }
+              $leb .=$value.' ';
+           }
+           return ucwords($leb);
+        }
+    }
+    
+    
+    if (!function_exists('amicrud_general_labels')) { 
+        function amicrud_general_labels($label)
+        {
+           $exp_label = explode('_',$label);
+           $leb = '';
+           foreach ($exp_label as $value) {
+              $leb .=$value.' ';
+           }
+           return ucwords(str_replace('-',' ',$leb));
+        }
+    }
+
+    if (!function_exists('amicrud_short_string')) {
+        function amicrud_short_string($str,$max=30)
+        { 
+            if (strlen($str) < $max) return $str;
+            return substr($str, 0, $max).'...';
+        }
+    }
+
+    if (!function_exists('amicrud_status_class')) {
+        function amicrud_status_class($status)
+        {
+            switch ($status) {
+                case (amicrud_status_name()['PENDING']):
+                    return 'secondary';
+                    break;
+                case amicrud_status_name()['FORWARDED']:
+                    return 'secondary';
+                    break;
+                case amicrud_status_name()['NOT_SUBMITTED']:
+                    return 'secondary';
+                    break;
+                case amicrud_status_name()['APPROVED']:
+                    return 'success';
+                    break;
+                case amicrud_status_name()['COMPLETED']:
+                    return 'success';
+                    break;
+                case amicrud_status_name()['REJECTED']:
+                    return 'danger ';
+                    break;
+                case amicrud_status_name()['DECLINED']:
+                    return 'danger';
+                    break;
+                case amicrud_status_name()['DECLINED_FOR']:
+                    return 'danger';
+                    break;
+                case amicrud_status_name()['CANCELLED']:
+                    return 'danger';
+                    break;
+                case amicrud_status_name()['PAID']:
+                    return 'success';
+                    break;
+                case amicrud_status_name()['PART_PAID']:
+                    return 'secondary';
+                    break;
+                case amicrud_status_name()['CREDIT']:
+                    return 'warning';
+                    break;
+                case amicrud_status_name()['REVIEW']:
+                    return 'warning';
+                    break;
+                default:
+                   return 'primary';
+                    break;
+            }
+        }
+       }
+
+       if (!function_exists('amicrud_status_name')) {
+        function amicrud_status_name($name=null)
+        {
+          $name = strtoupper($name);
+          $statuses = [
+            'PENDING' => 'pending',
+            'NOT_SUBMITTED' => 'not_submitted',
+            'CANCELLED' => 'cancelled',
+            'COMPLETED' => 'completed',
+            'SUBMITTED' => 'submitted',
+            'APPROVED' => 'approved',
+            'APPROVED_FOR' => 'approved_for',
+            'DECLINED' => 'declined',
+            'DECLINED_FOR' => 'declined_for',
+            'REJECTED' => 'rejected',
+            'FORWARDED' => 'forwarded',
+            'PAID' => 'paid',
+            'PART_PAID' => 'part_paid',
+            'CREDIT' => 'credit',
+            'DELIVERED' => 'delivered',
+            'RECEIVED' => 'received',
+            'AWAITING' => 'awaiting',
+            'REVIEW' => 'review',
+            'RETURNED' => 'returned',
+          ];
+          if ($name) {
+            return isset($statuses[$name]) ? $statuses[$name] : null;
+          }else{
+            return $statuses;
+          }
+        }
+       }

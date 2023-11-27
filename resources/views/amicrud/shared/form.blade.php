@@ -4,7 +4,7 @@
          
           @if($form_update)
 
-              <form action="{{sign_url(route($form_create_route))}}" method="POST" class="amicrud {{isset($class)?$class:''}} w-100"
+              <form action="{{amicrud_sign_url(route($form_create_route))}}" method="POST" class="amicrud {{isset($class)?$class:''}} w-100"
               enctype="multipart/form-data" id="{{$form_id}}">
               @csrf
               <div class="row">
@@ -22,7 +22,7 @@
                  @if( isset($custom_form_display) && !empty($custom_form_display))
                  @forelse ($custom_form_display as $item)
                  <div class="form-group col-md-12">
-                  <label for="form-control-label">{{  form_labels($item['name'])}}
+                  <label for="form-control-label">{{  amicrud_form_labels($item['name'])}}
                      @if (in_array($form['validate_update'],["required"])||is_array($form['validate_update']))
                      <span class="text-danger">*</span>
                      @endif 
@@ -38,7 +38,7 @@
                  @forelse($formable as $field => $form)
                   @if($form['type']=='text')
                   <div class="form-group  col-md-{{$form['col']}}  ">
-                  <label for="form-control-label">{{  form_labels($form_field_names[$field])}} 
+                  <label for="form-control-label">{{  amicrud_form_labels($form_field_names[$field])}} 
                      @if (in_array($form['validate_update'],["required"])||is_array($form['validate_update']))
                      <span class="text-danger">*</span>
                      @endif 
@@ -49,7 +49,7 @@
 
                   @elseif($form['type']=='text_readonly')
                   <div class="form-group  col-md-{{$form['col']}}  ">
-                  <label for="form-control-label">{{  form_labels($form_field_names[$field])}}
+                  <label for="form-control-label">{{  amicrud_form_labels($form_field_names[$field])}}
                      @if (in_array($form['validate_update'],["required"])||is_array($form['validate_update']))
                      <span class="text-danger">*</span>
                      @endif 
@@ -58,7 +58,7 @@
                   </div>
                   @elseif($form['type']=='text_password')
                   <div class="form-group  col-md-{{$form['col']}}  ">
-                  <label for="form-control-label">{{  form_labels($form_field_names[$field])}}
+                  <label for="form-control-label">{{  amicrud_form_labels($form_field_names[$field])}}
                      @if (in_array($form['validate_update'],["required"])||is_array($form['validate_update']))
                      <span class="text-danger">*</span>
                      @endif 
@@ -69,7 +69,7 @@
 
                   @elseif($form['type']=='color')
                   <div class="form-group col-md-{{$form['col']}} ">
-                  <label for="form-control-label">{{  form_labels($form_field_names[$field])}}
+                  <label for="form-control-label">{{  amicrud_form_labels($form_field_names[$field])}}
                      @if (in_array($form['validate_update'],["required"])||is_array($form['validate_update']))
                      <span class="text-danger">*</span>
                      @endif 
@@ -81,7 +81,7 @@
                   @elseif($form['type']=='email')
 
                   <div class="form-group col-md-{{$form['col']}} ">
-                  <label for="form-control-label">{{ form_labels($form_field_names[$field]) }}
+                  <label for="form-control-label">{{ amicrud_form_labels($form_field_names[$field]) }}
                      @if (in_array($form['validate_update'],["required"])||is_array($form['validate_update']))
                      <span class="text-danger">*</span>
                      @endif 
@@ -92,7 +92,7 @@
 
                   @elseif($form['type']=='file')
                   <div class="form-group col-md-{{$form['col']}}">
-                     <label for="form-control-label">{{ form_labels($form_field_names[$field]) }}
+                     <label for="form-control-label">{{ amicrud_form_labels($form_field_names[$field]) }}
                         @if (in_array($form['validate_update'],["required"])||is_array($form['validate_update']))
                         <span class="text-danger">*</span>
                         @endif 
@@ -106,7 +106,7 @@
                   @elseif($form['type']=='number')
 
                  <div class="form-group col-md-{{$form['col']}} ">
-                  <label for="form-control-label">{{ form_labels($form_field_names[$field]) }}
+                  <label for="form-control-label">{{ amicrud_form_labels($form_field_names[$field]) }}
                      @if (in_array($form['validate_update'],["required"])||is_array($form['validate_update']))
                      <span class="text-danger">*</span>
                      @endif 
@@ -117,7 +117,7 @@
 
                   @elseif($form['type']=='select')
                   <div class="form-group col-md-{{$form['col']}} ">
-                  <label for="form-control-label">{{ form_labels($form_field_names[$field]) }}
+                  <label for="form-control-label">{{ amicrud_form_labels($form_field_names[$field]) }}
                      @if (in_array($form['validate_update'],["required"])||is_array($form['validate_update']))
                      <span class="text-danger">*</span>
                      @endif 
@@ -129,7 +129,7 @@
                   @if ($form_select_items)
                     @forelse($form_select_items[$field] as $k => $v)
                     <option value="{{$k}}" @if($model->{$field}==$k) selected @endif>
-                        {{form_labels($v)}}
+                        {{amicrud_form_labels($v)}}
                     </option>
                     @empty
                     @endforelse
@@ -140,7 +140,7 @@
 
                   @elseif($form['type']=='date')
                    <div class="form-group col-md-{{$form['col']}} ">
-                  <label for="form-control-label">{{ form_labels($form_field_names[$field]) }}
+                  <label for="form-control-label">{{ amicrud_form_labels($form_field_names[$field]) }}
                      @if (in_array($form['validate_update'],["required"])||is_array($form['validate_update']))
                      <span class="text-danger">*</span>
                      @endif 
@@ -152,7 +152,7 @@
                   @elseif($form['type']=='textarea')
 
                   <div class="form-group col-md-{{$form['col']}} ">
-                  <label for="form-control-label">{{ form_labels($form_field_names[$field]) }}
+                  <label for="form-control-label">{{ amicrud_form_labels($form_field_names[$field]) }}
                      @if (in_array($form['validate_update'],["required"])||is_array($form['validate_update']))
                      <span class="text-danger">*</span>
                      @endif 
@@ -164,7 +164,7 @@
                    @elseif($form['type']=='textarea_summernote')
 
                   <div class="form-group col-md-{{$form['col']}} ">
-                  <label for="form-control-label">{{ form_labels($form_field_names[$field]) }}
+                  <label for="form-control-label">{{ amicrud_form_labels($form_field_names[$field]) }}
                      @if (in_array($form['validate_update'],["required"])||is_array($form['validate_update']))
                      <span class="text-danger">*</span>
                      @endif 
@@ -176,7 +176,7 @@
                   @elseif($form['type']=='textarea_readonly')
 
                   <div class="form-group col-md-{{$form['col']}} ">
-                  <label for="form-control-label">{{ form_labels($form_field_names[$field]) }}
+                  <label for="form-control-label">{{ amicrud_form_labels($form_field_names[$field]) }}
                      @if (in_array($form['validate_update'],["required"])||is_array($form['validate_update']))
                      <span class="text-danger">*</span>
                      @endif 
@@ -187,7 +187,7 @@
                   
                   @elseif($form['type']=='checkbox')
                   <div class="form-group mt-4 col-md-{{$form['col']}} ">
-                  <label for="form-control-label">{{ form_labels($form_field_names[$field]) }}
+                  <label for="form-control-label">{{ amicrud_form_labels($form_field_names[$field]) }}
                      @if (in_array($form['validate_update'],["required"])||is_array($form['validate_update']))
                      <span class="text-danger">*</span>
                      @endif 
@@ -207,7 +207,7 @@
                         @endphp
                       <input type="checkbox" data-ignore="true" value="{{$k}}" name="{{$field}}[]"
                       @if(in_array($k,$mod)) @checked(true) @endif >
-                          {{form_labels($v)}}
+                          {{amicrud_form_labels($v)}}
                       </label>
                    @empty
                    @endforelse
@@ -222,7 +222,7 @@
                   @elseif($form['type']=='radio')
 
                   <div class="form-group mt-4 col-md-{{$form['col']}} ">
-                  <label for="form-control-label">{{ form_labels($form_field_names[$field]) }}
+                  <label for="form-control-label">{{ amicrud_form_labels($form_field_names[$field]) }}
                      @if (in_array($form['validate_update'],["required"])||is_array($form['validate_update']))
                      <span class="text-danger">*</span>
                      @endif 
@@ -235,7 +235,7 @@
                           <input type="radio" data-ignore="true" 
                           @if($model->{$field}==$form_select_items[$field][$v]) @checked(true) @endif 
                           name="{{$field}}" value="{{$k}}">
-                          {{form_labels($v)}}
+                          {{amicrud_form_labels($v)}}
                     </label>
                     @empty
                     @endforelse
@@ -246,7 +246,7 @@
 
                   @elseif($form['type']=='inputs')
                   <div class="form-group mt-4 col-md-{{$form['col']}} ">
-                  <label for="form-control-label">{{ form_labels($form_field_names[$field]) }}
+                  <label for="form-control-label">{{ amicrud_form_labels($form_field_names[$field]) }}
                      @if (in_array($form['validate_update'],["required"])||is_array($form['validate_update']))
                      <span class="text-danger">*</span>
                      @endif 
@@ -256,7 +256,7 @@
                      @if ($form_select_items)
                    @forelse($form_select_items[$field] as $k => $v)
                      <div class="form-group col-md-3 ">
-                      <label for="" class="form-control-label"> {{form_labels($v)}} </label>
+                      <label for="" class="form-control-label"> {{amicrud_form_labels($v)}} </label>
                       <input type="text" class="form-control" data-ignore="true" name="{{$field}}[]" value="{{ $model?->{$field}?->{$v} }}">
                      </div>
                    @empty
@@ -293,7 +293,7 @@
 
 
 
-                <form action="{{sign_url(route($form_create_route))}}" method="POST" class="amicrud {{isset($class)?$class : ''}}" enctype="multipart/form-data" id="{{$form_id}}">
+                <form action="{{amicrud_sign_url(route($form_create_route))}}" method="POST" class="amicrud {{isset($class)?$class : ''}}" enctype="multipart/form-data" id="{{$form_id}}">
                     @csrf
 
                @if( isset($custom_form_hidden_input) && !empty($custom_form_hidden_input))
@@ -308,7 +308,7 @@
 
                  @if($form['type']=='text')
                  <div class="form-group col-md-{{$form['col']}} ">
-                 <label for="form-control-label">{{ form_labels($form_field_names[$field])}}
+                 <label for="form-control-label">{{ amicrud_form_labels($form_field_names[$field])}}
                  @if (in_array($form['validate_create'],["required"])||is_array($form['validate_create']))
                  <span class="text-danger">*</span>
                  @endif 
@@ -319,7 +319,7 @@
 
                  @elseif($form['type']=='text_password')
                  <div class="form-group  col-md-{{$form['col']}}  ">
-                 <label for="form-control-label">{{  form_labels($form_field_names[$field])}}
+                 <label for="form-control-label">{{  amicrud_form_labels($form_field_names[$field])}}
                   @if (in_array($form['validate_create'],["required"])||is_array($form['validate_create']))
                   <span class="text-danger">*</span>
                   @endif 
@@ -331,7 +331,7 @@
                  @elseif($form['type']=='color')
 
                  <div class="form-group col-md-{{$form['col']}} ">
-                 <label for="form-control-label">{{ form_labels($form_field_names[$field]) }}
+                 <label for="form-control-label">{{ amicrud_form_labels($form_field_names[$field]) }}
                   @if (in_array($form['validate_create'],["required"])||is_array($form['validate_create']))
                   <span class="text-danger">*</span>
                   @endif 
@@ -343,7 +343,7 @@
                  @elseif($form['type']=='email')
 
                  <div class="form-group col-md-{{$form['col']}} ">
-                 <label for="form-control-label">{{ form_labels($form_field_names[$field]) }}
+                 <label for="form-control-label">{{ amicrud_form_labels($form_field_names[$field]) }}
                   @if (in_array($form['validate_create'],["required"])||is_array($form['validate_create']))
                   <span class="text-danger">*</span>
                   @endif 
@@ -354,7 +354,7 @@
 
                  @elseif($form['type']=='file')
                  <div class="form-group col-md-{{$form['col']}} ">
-                    <label for="form-control-label">{{ form_labels($form_field_names[$field]) }}
+                    <label for="form-control-label">{{ amicrud_form_labels($form_field_names[$field]) }}
                      @if (in_array($form['validate_create'],["required"])||is_array($form['validate_create']))
                      <span class="text-danger">*</span>
                      @endif 
@@ -367,7 +367,7 @@
                  @elseif($form['type']=='number')
 
                 <div class="form-group col-md-{{$form['col']}} ">
-                 <label for="form-control-label">{{ form_labels($form_field_names[$field]) }}
+                 <label for="form-control-label">{{ amicrud_form_labels($form_field_names[$field]) }}
                   @if (in_array($form['validate_create'],["required"])||is_array($form['validate_create']))
                   <span class="text-danger">*</span>
                   @endif 
@@ -378,7 +378,7 @@
 
                  @elseif($form['type']=='select')
                  <div class="form-group col-md-{{$form['col']}} ">
-                 <label for="form-control-label">{{ form_labels($form_field_names[$field]) }}
+                 <label for="form-control-label">{{ amicrud_form_labels($form_field_names[$field]) }}
                   @if (in_array($form['validate_create'],["required"])||is_array($form['validate_create']))
                   <span class="text-danger">*</span>
                   @endif 
@@ -387,7 +387,7 @@
                   <option value="" selected>select options...</option>
                   @if ($form_select_items)
                 @forelse($form_select_items[$field] as $k => $v)
-                <option value="{{$k}}">{{form_labels($v)}}</option>
+                <option value="{{$k}}">{{amicrud_form_labels($v)}}</option>
                 @empty
                 @endforelse
                 @endif
@@ -397,7 +397,7 @@
 
                 @elseif($form['type']=='date')
                 <div class="form-group col-md-{{$form['col']}} ">
-                <label for="form-control-label">{{ form_labels($form_field_names[$field]) }}
+                <label for="form-control-label">{{ amicrud_form_labels($form_field_names[$field]) }}
                   @if (in_array($form['validate_create'],["required"])||is_array($form['validate_create']))
                   <span class="text-danger">*</span>
                   @endif 
@@ -409,7 +409,7 @@
                 @elseif($form['type']=='textarea')
 
                 <div class="form-group col-md-{{$form['col']}} ">
-                <label for="form-control-label">{{ form_labels($form_field_names[$field]) }}
+                <label for="form-control-label">{{ amicrud_form_labels($form_field_names[$field]) }}
                   @if (in_array($form['validate_create'],["required"])||is_array($form['validate_create']))
                   <span class="text-danger">*</span>
                   @endif 
@@ -421,7 +421,7 @@
                 @elseif($form['type']=='textarea_summernote')
 
                 <div class="form-group col-md-{{$form['col']}} ">
-                <label for="form-control-label">{{ form_labels($form_field_names[$field]) }}
+                <label for="form-control-label">{{ amicrud_form_labels($form_field_names[$field]) }}
                   @if (in_array($form['validate_create'],["required"])||is_array($form['validate_create']))
                   <span class="text-danger">*</span>
                   @endif 
@@ -432,7 +432,7 @@
 
                 @elseif($form['type']=='textarea_readonly')
                 <div class="form-group col-md-{{$form['col']}} ">
-                <label for="form-control-label">{{ form_labels($form_field_names[$field]) }}
+                <label for="form-control-label">{{ amicrud_form_labels($form_field_names[$field]) }}
                   @if (in_array($form['validate_create'],["required"])||is_array($form['validate_create']))
                   <span class="text-danger">*</span>
                   @endif 
@@ -444,7 +444,7 @@
                 @elseif($form['type']=='checkbox')
 
                 <div class="form-group mt-4  col-md-{{$form['col']}} ">
-                <label for="form-control-label">{{ form_labels($form_field_names[$field]) }}
+                <label for="form-control-label">{{ amicrud_form_labels($form_field_names[$field]) }}
                   @if (in_array($form['validate_create'],["required"])||is_array($form['validate_create']))
                   <span class="text-danger">*</span>
                   @endif 
@@ -456,7 +456,7 @@
                     <label for="" class="col-md-3">
                     <input type="checkbox" data-ignore="true" 
                      name="{{$field}}[]" value="{{$k}}">
-                        {{form_labels($v)}}
+                        {{amicrud_form_labels($v)}}
                     </label>
                  @empty
                  @endforelse
@@ -469,7 +469,7 @@
                 @elseif($form['type']=='radio')
 
                 <div class="form-group mt-4  col-md-{{$form['col']}} ">
-                <label for="form-control-label">{{ form_labels($form_field_names[$field]) }}
+                <label for="form-control-label">{{ amicrud_form_labels($form_field_names[$field]) }}
                   @if (in_array($form['validate_create'],["required"])||is_array($form['validate_create']))
                   <span class="text-danger">*</span>
                   @endif 
@@ -481,7 +481,7 @@
                   <label for="" class="col-md-3">
                         <input type="radio" data-ignore="true"
                         name="{{$field}}" value="{{$k}}">
-                        {{form_labels($v)}}
+                        {{amicrud_form_labels($v)}}
                   </label>
                   @empty
                   @endforelse
@@ -493,7 +493,7 @@
 
                 @elseif($form['type']=='inputs')
                 <div class="form-group mt-4 col-md-{{$form['col']}} ">
-                <label for="form-control-label">{{ form_labels($form_field_names[$field]) }}
+                <label for="form-control-label">{{ amicrud_form_labels($form_field_names[$field]) }}
                    @if (in_array($form['validate_create'],["required"])||is_array($form['validate_create']))
                    <span class="text-danger">*</span>
                    @endif 
@@ -503,7 +503,7 @@
                   @if ($form_select_items)
                  @forelse($form_select_items[$field] as $k => $v)
                    <div class="form-group col-md-3 ">
-                    <label for="" class="form-control-label"> {{form_labels($v)}} </label>
+                    <label for="" class="form-control-label"> {{amicrud_form_labels($v)}} </label>
                     <input type="text" class="form-control" data-ignore="true" name="{{$field}}[]">
                    </div>
                  @empty

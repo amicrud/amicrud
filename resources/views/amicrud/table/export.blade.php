@@ -8,7 +8,7 @@ $string_limit = 100;
             <tr>
                 <th scope="col" style="width: 50px;">#</th>
                 @forelse($display_field as $column_name => $custom_name)
-                <th class="sort" data-sort="{{$custom_name}}">{{ form_labels($custom_name) }}</th>
+                <th class="sort" data-sort="{{$custom_name}}">{{ amicrud_form_labels($custom_name) }}</th>
                 @empty
                 @endforelse
                 
@@ -30,11 +30,11 @@ $string_limit = 100;
                     </a>
                   </div>
                    @elseif(in_array($column_name,['status','flow_status','action_status']))
-                   <span class="btn badge bg-soft-{{ status_class($c->{$column_name}) }} text-{{ status_class($c->{$column_name}) }}">{{ $c->{$column_name} }}</span>
+                   <span class="btn badge bg-soft-{{ amicrud_status_class($c->{$column_name}) }} text-{{ amicrud_status_class($c->{$column_name}) }}">{{ $c->{$column_name} }}</span>
                    @elseif($formable[$column_name]['type']=='select')
-                    {{ $c->{$column_name} ? form_labels(short_string(ucfirst($formable[$column_name]['select_items'][$c->{$column_name}]))) :null }}
+                    {{ $c->{$column_name} ? amicrud_form_labels(amicrud_short_string(ucfirst($formable[$column_name]['select_items'][$c->{$column_name}]))) :null }}
                    @else 
-                   {!! form_labels(short_string($c->{$column_name},$string_limit)) !!}
+                   {!! amicrud_form_labels(amicrud_short_string($c->{$column_name},$string_limit)) !!}
                    @endif
                  </td>
                 @empty

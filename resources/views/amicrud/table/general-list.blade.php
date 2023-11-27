@@ -1,6 +1,6 @@
 @extends($page_layout)
-@section('title', form_labels($crud_name))
-@section('page-title') {{form_labels($crud_name)}} @endsection
+@section('title', amicrud_form_labels($crud_name))
+@section('page-title') {{amicrud_form_labels($crud_name)}} @endsection
 @section('breadcrumb')
 @endsection
 @section('content')
@@ -10,11 +10,12 @@
                 <div class="row mb-3 justify-content-center">
 
                     @php
-                        $issetSideBar = isset($sidebar) && (isset($categories)||isset($customer_types)||isset($expenditure_types) || 
-                        (
-                            (isset($branches)||isset($warehouses)||isset($factories))&&user_has_role(['admin','admin_user'])
-                        )
-                    );
+                        $issetSideBar = true;
+                    //     isset($sidebar) && (isset($categories)||isset($customer_types)||isset($expenditure_types) || 
+                    //     (
+                    //         (isset($branches)||isset($warehouses)||isset($factories))&&user_has_role(['admin','admin_user'])
+                    //     )
+                    // );
                     @endphp
                     @if( $issetSideBar )
                     <div class="col-md-2">

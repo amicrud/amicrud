@@ -21,13 +21,13 @@
             @elseif($c->{$column_name}==0)
             <span class="btn badge bg-soft-danger text-danger">Pending</span>
             @else
-            <span class="btn badge bg-soft-{{ status_class($c->{$column_name}) }} text-{{ status_class($c->{$column_name}) }}">{{ $c->{$column_name} }}</span>
+            <span class="btn badge bg-soft-{{ amicrud_status_class($c->{$column_name}) }} text-{{ amicrud_status_class($c->{$column_name}) }}">{{ $c->{$column_name} }}</span>
             @endif
 
        @elseif($formable[$column_name]['type']=='select')
-        {{ $c->{$column_name} ? form_labels(short_string(ucfirst($formable[$column_name]['select_items'][$c->{$column_name}]))) :null }}
+        {{ $c->{$column_name} ? amicrud_form_labels(amicrud_short_string(ucfirst($formable[$column_name]['select_items'][$c->{$column_name}]))) :null }}
        @else 
-       {!! form_labels(short_string($c->{$column_name},(isset($string_limit)?$string_limit:20))) !!}
+       {!! amicrud_form_labels(amicrud_short_string($c->{$column_name},(isset($string_limit)?$string_limit:20))) !!}
        @endif
      </td>
     @empty
@@ -39,12 +39,12 @@
             {{-- @dd($show_actions,isset($edit_model),$edit_model) --}}
             @if(isset($edit_model)&&$edit_model)
             <div class="edit mr-2">
-                <button class="btn btn-sm btn-success edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal" data-url="{{sign_url(route($form_edit_route,$c->id))}}" data-name="{{Str::singular($crud_name)}}">Edit</button>
+                <button class="btn btn-sm btn-success edit-item-btn" data-bs-toggle="modal" data-bs-target="#showModal" data-url="{{amicrud_sign_url(route($form_edit_route,$c->id))}}" data-name="{{Str::singular($crud_name)}}">Edit</button>
             </div>
             @endif
             @if(isset($delete_model)&&$delete_model)
             <div class="remove">
-                <button class="btn btn-sm btn-danger remove-item-btn"  data-url="{{sign_url(route($form_delete_route,$c->id))}}" data-name="{{Str::singular($crud_name)}}">Remove</button>
+                <button class="btn btn-sm btn-danger remove-item-btn"  data-url="{{amicrud_sign_url(route($form_delete_route,$c->id))}}" data-name="{{Str::singular($crud_name)}}">Remove</button>
             </div>
             @endif
         </div>

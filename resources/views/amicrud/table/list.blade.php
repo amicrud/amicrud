@@ -5,7 +5,7 @@
             <tr>
                 <th scope="col" style="width: 50px;">#</th>
                 @forelse($display_field as $column_name => $custom_name)
-                <th class="sort" data-sort="{{$custom_name}}">{{ form_labels($custom_name) }}</th>
+                <th class="sort" data-sort="{{$custom_name}}">{{ amicrud_form_labels($custom_name) }}</th>
                 @empty
                 @endforelse
                 @if(isset($show_actions) && $show_actions)

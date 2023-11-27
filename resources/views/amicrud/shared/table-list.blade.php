@@ -5,7 +5,7 @@
             <thead>
             <tr class="list-item-header-row">
                 @forelse($fields as $k=>$f)
-                    <th class="column-title" style="display:{{$k=='id'?'none':''}}">{{ form_labels($k) }}</th>
+                    <th class="column-title" style="display:{{$k=='id'?'none':''}}">{{ amicrud_form_labels($k) }}</th>
                 @empty
                 @endforelse
                 @if(isset($show_actions) && $show_actions)

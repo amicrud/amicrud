@@ -7,7 +7,7 @@
             <thead>
             <tr class="list-item-header-row">
                 @forelse($display_field as $column_name => $custom_name)
-                    <th class="column-title" style="display:{{$column_name=='id'?'none':''}}">{{ form_labels($custom_name) }}</th>
+                    <th class="column-title" style="display:{{$column_name=='id'?'none':''}}">{{ amicrud_form_labels($custom_name) }}</th>
                 @empty
                 @endforelse
                 @if(isset($show_actions) && $show_actions && !isset($export))
@@ -23,9 +23,9 @@
                            
 
                             @if($formable[$column_name]['type']=='select')
-                                {{ $c->{$column_name} ? form_labels(short_string(ucfirst($formable[$column_name]['select_items'][$c->{$column_name}]))) :null }}
+                                {{ $c->{$column_name} ? amicrud_form_labels(amicrud_short_string(ucfirst($formable[$column_name]['select_items'][$c->{$column_name}]))) :null }}
                             @else
-                            {!! short_string($c->{$column_name},$string_limit) !!}
+                            {!! amicrud_short_string($c->{$column_name},$string_limit) !!}
                             @endif
 
 
