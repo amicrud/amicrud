@@ -26,11 +26,7 @@ class AmiCrudServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__.'/../config/amicrud.php' => config_path('amicrud.php'),
-        ], 'config');
-    
-        $this->mergeConfigFrom(
-            __DIR__.'/../config/amicrud.php', 'amicrud'
-        );
+        ]);
     }
 
     /**

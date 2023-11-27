@@ -1,5 +1,20 @@
 @extends($page_layout)
 @section('title', amicrud_form_labels($crud_name))
+
+@push('amicrud_css')
+
+    @if(config('amicrud.load_fontawesome'))
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    @endif
+
+    @if(config('amicrud.load_bootstrap'))
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    @endif
+
+@endpush
+
 @section('content')
     <div class="row">
         <div class="col">
@@ -25,7 +40,7 @@
                                         <div class="col-sm">
                                             <div class="d-inline-flex">
                                                 @if(isset($add_model)&&$add_model)
-                                                    <button type="button" class="btn btn-success add-btn d-ruby mr-2 pr-4" data-bs-toggle="modal" id="create-btn" data-bs-target="#showModal" data-name="{{Str::singular($crud_name)}}" data-url="{{amicrud_sign_url(route($form_edit_route,'null'))}}"> <span>Add</span> <i class="ri-add-line align-bottom me-1"></i></button>
+                                                    <button type="button" class="btn btn-success add-btn d-ruby mr-2 pr-4" id="create-btn" data-name="{{Str::singular($crud_name)}}" data-url="{{amicrud_sign_url(route($form_edit_route,'null'))}}"> <span>Add</span> <i class="ri-add-line align-bottom me-1"></i></button>
                                                 @endif
                                                
                                                 <!-- Vertical Variation -->
@@ -62,11 +77,37 @@
             </div>
         </div>
     </div>
-
-@include('amicrud::amicrud.table.modal')
-
 @endsection
-@section("js")
-   
-@include('amicrud::amicrud.table.js')
-@endsection
+
+
+@push('amicrud_js')
+
+  @if(config('amicrud.load_jquery'))
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  @endif
+
+  @if(config('amicrud.load_bootstrap'))
+    <!-- Bootstrap Bundle (includes Popper) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+  @endif
+
+  @if(config('amicrud.load_bootstrap_datepicker'))
+    <!-- Bootstrap Datepicker JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script>
+        $('.date-picker').datepicker({ 
+          clearBtn: true,
+          autoclose: true
+        });
+    </script>
+  @endif
+
+  @if(config('amicrud.load_bootstrap_datepicker'))
+    <!-- Sweet Alerts js -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  @endif
+
+@include('amicrud::amicrud.formsjs')
+
+@endpush

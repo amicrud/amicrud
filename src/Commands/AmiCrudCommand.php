@@ -99,7 +99,7 @@ class AmiCrudCommand extends Command
         $controllerName = array_pop($controllerSegments);
        
         $this->info("<options=bold;fg=green>ROUTE:</> ". "Route::resource('/".$route."', ".$controllerName."::class);"); 
-        $this->info("<options=bold;fg=green>LINK:</> ". ' <a href="{{route("'.$route.'")}}">'); 
+        $this->info("<options=bold;fg=green>LINK:</> ". ' <a href="{{route("'.$route.'.index")}}">'); 
 
         // $controllerClass = "App\\Http\\Controllers\\" . str_replace('/', '\\', $controllerPath);
         // $routeFilePath = base_path("routes/amicrud.php");

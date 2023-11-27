@@ -1,5 +1,20 @@
 
 @extends($page_layout)
+
+@push('amicrud_css')
+
+    @if(config('amicrud.load_fontawesome'))
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    @endif
+
+    @if(config('amicrud.load_bootstrap'))
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    @endif
+
+@endpush
+
 @section('title') {{amicrud_form_labels($crud_name)}} @endsection
 @section('content')
 
@@ -45,12 +60,34 @@
 
 @endsection
 
-@section('js')
-@include('amicrud::amicrud.formsjs')
-<script>
-    $(function(){
-    'use strict';
+@push('amicrud_js')
 
-    });
-</script>
-@endsection
+  @if(config('amicrud.load_jquery'))
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  @endif
+
+  @if(config('amicrud.load_bootstrap'))
+    <!-- Bootstrap Bundle (includes Popper) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+  @endif
+
+  @if(config('amicrud.load_bootstrap_datepicker'))
+    <!-- Bootstrap Datepicker JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script>
+        $('.date-picker').datepicker({ 
+          clearBtn: true,
+          autoclose: true
+        });
+    </script>
+  @endif
+
+  @if(config('amicrud.load_sweetalert'))
+    <!-- Sweet Alerts js -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  @endif
+
+@include('amicrud::amicrud.formsjs')
+
+@endpush

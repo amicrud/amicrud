@@ -352,3 +352,21 @@ function SaveItem()
         },
     });
 }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var dropdown = document.getElementById('exportGroup');
+        var dropdownMenu = dropdown.querySelector('.dropdown-menu');
+        var dropdownToggle = dropdown.querySelector('.dropdown-toggle');
+
+        dropdownToggle.addEventListener('click', function() {
+            dropdownMenu.classList.toggle('show');
+        });
+
+        // Optional: Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!dropdown.contains(event.target)) {
+                dropdownMenu.classList.remove('show');
+            }
+        });
+    });
+

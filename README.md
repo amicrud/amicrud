@@ -20,14 +20,15 @@ composer require amicrud/amicrud
 
 ```
 
-
 ## Publication
 To publish the package configuration file to your application, run:
 
 ```bash
 
-php artisan vendor:publish --provider="AmiCrud\AmiCrud\AmiCrudServiceProvider" --tag=config
+php artisan vendor:publish 
 
+```
+Then AmiCrud\AmiCrudServiceProvider  as the provider. 
 
 ## Usage
 
@@ -36,12 +37,13 @@ php artisan vendor:publish --provider="AmiCrud\AmiCrud\AmiCrudServiceProvider" -
  To utilize AmiCrud, extend the AmiCrud class in your controller. This will enable CRUD functionalities for the specified model.
  
   <code> 
-    use AmiCrud\AmiCrud\AmiCrudTable;
 
+    use AmiCrud\AmiCrud\AmiCrudTable;
     class UserController extends AmiCrudTable {
 
         protected $model = User::class; // Specify your Eloquent model
     }
+
   </code>
 
   2. Define Routes:
