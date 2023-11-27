@@ -3,14 +3,15 @@
 @section('title') {{amicrud_form_labels($crud_name)}} @endsection
 @section('content')
 
-    <div class="row">
-        <div class="add-listing-headline">
-            <h3>{{amicrud_form_labels($crud_name)}}</h3>
-        </div>
-        
+    <div class="row"> 
       <div class="card w-100">
         <div class="card-body">
-            <h4 class="mt-0 header-title">List Of {{amicrud_form_labels($crud_name)}}</h4>
+            <h4 class="mt-0 header-title"> View
+                {{(isset($add_model)&&$add_model) ? ', Add' :'' }}
+                {{(isset($edit_model)&&$edit_model) ? ', Edit' :'' }}
+                {{(isset($delete_model)&&$delete_model) ? '& Delete ' :'' }}
+                 
+                {{amicrud_form_labels($crud_name)}}</h4>
            <div class="row">
             <div class="col-md-3 p-0">
                 <div class="card-footer bg-white p-0">

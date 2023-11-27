@@ -23,6 +23,14 @@ class AmiCrudServiceProvider extends ServiceProvider
         
         // Register routes if any
         // include __DIR__.'/routes.php';
+
+        $this->publishes([
+            __DIR__.'/../config/amicrud.php' => config_path('amicrud.php'),
+        ], 'config');
+    
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/amicrud.php', 'amicrud'
+        );
     }
 
     /**

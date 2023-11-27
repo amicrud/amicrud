@@ -21,10 +21,12 @@ composer require amicrud/amicrud
 ```
 
 
-## Installation
+## Publication
+To publish the package configuration file to your application, run:
 
-After installing the package, publish the configuration and view files (it is not required):
-php artisan vendor:publish --provider="AmiCrud\AmiCrud\AmiCrudServiceProvider"
+```bash
+
+php artisan vendor:publish --provider="AmiCrud\AmiCrud\AmiCrudServiceProvider" --tag=config
 
 
 ## Usage

@@ -313,7 +313,8 @@ class AmiCrud extends Controller
 
    public function default_pagination_number(): int
    {
-       return $this->default_pagination_number;
+       // will be added to config
+       return $this->default_pagination_number ?? config('amicrud.pagination.default');
    }
    
    public function fillable(): mixed
