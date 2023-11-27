@@ -972,7 +972,7 @@ class AmiCrud extends Controller
 
             // on update 
             if ($createed = $model->save()) {
-                $this->updated($model);
+                $this->updated($request,$model);
             }
 
         }else{
@@ -982,7 +982,7 @@ class AmiCrud extends Controller
            }
            // on create 
             if ($createed = $modelCreate->save()) {
-                $this->created($modelCreate);
+                $this->created($request,$modelCreate);
             }
     
         }
@@ -1004,7 +1004,7 @@ class AmiCrud extends Controller
     /**
      * called when model added 
      */
-    public function created($model) : void
+    public function created(Request $request, $model) : void
     {
         
 
@@ -1013,7 +1013,7 @@ class AmiCrud extends Controller
      /**
      * called when model updated
      */
-    public function updated($model): void
+    public function updated(Request $request, $model): void
     {
         
     }
