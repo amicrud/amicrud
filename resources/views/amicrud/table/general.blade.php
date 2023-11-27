@@ -108,6 +108,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   @endif
 
-@include('amicrud::amicrud.formsjs')
+@include('amicrud::amicrud.table.js')
 
 @endpush
