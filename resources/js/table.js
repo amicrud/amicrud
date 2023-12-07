@@ -49,7 +49,7 @@ $(document).ready(function() {
                     $(target).html("").html(data);
                     const $form = $(target).find('form');
                     $(target).find('.dropify').each(function(){$(this).dropify()});
-                    $(target).find('.summernote').each(function(){$(this).summernote('disable')});
+                    $(target).find('.summernote').each(function(){$(this).summernote()});
                     // $('.select2').select2();
                 },
             });
@@ -76,7 +76,7 @@ $(document).ready(function() {
                     $(target).html("").html(data);
                     const $form = $(target).find('form');
                     $(target).find('.dropify').each(function(){$(this).dropify()});
-                    $(target).find('.summernote').each(function(){$(this).summernote('disable')});
+                    $(target).find('.summernote').each(function(){$(this).summernote()});
                 },
             });
     });
