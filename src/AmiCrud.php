@@ -259,7 +259,12 @@ class AmiCrud extends Controller
     /**
      * @var mixed  Date Range
      */
-    public $search_date_from;
+    public $search_date_from; 
+
+     /**
+     * @var mixed  model
+     */
+    public $modify_edit_model; 
 
       /**
      * @var mixed  Date Range
@@ -698,7 +703,7 @@ class AmiCrud extends Controller
 
     public function additional_edit_data():array
     {
-      return  $this->additional_edit_data;
+      return  $this->additional_edit_data??[];
     }
     
 
@@ -721,19 +726,26 @@ class AmiCrud extends Controller
         
          public function edit(Request $request, $id) : mixed
          {
-     
               // verify url signature
               $verificationResponse = $this->verify_sign_url($request);
               if ($verificationResponse !== null) {
                   return $verificationResponse;
               }
      
+             $data = [];
              $model= $this->model()->find($id);
              if($model){
+                $model = $this->modify_edit_model($model);
+                $data['model'] = $model;
+                $data['model_action'] = 'Update';
+                $data['form_update'] = true;
+             }else{
+                $data['model'] = null;
+                $data['form_update'] = false;
+                $data['model_action'] = 'Create';
+             }
                
-             $data = [
-                'model' => $model,
-                'model_action' => 'Update',
+             $data = array_merge($data, [
                 'crud_name' => $this->crud_name(),
                 'form_create_route' => $this->form_create_route(),
                 'form_id' => $this->form_id(),
@@ -741,47 +753,29 @@ class AmiCrud extends Controller
                 'form_view' => $this->form_view(),
                 'formable' => $this->formable(),
                 'page_layout' => $this->page_layout(),
-                'form_update' => true,
                 'form_select_items' => $this->form_select_items(),
                 'custom_form_hidden_input' => $this->custom_form_hidden_input(),
                 'controls' => $this->controls(),
-              ];
-              $data = array_merge($data,$this->additional_create_data());
+              ]);
+              $data = array_merge($data,$this->additional_edit_data());
                if ($request->ajax()) {
                  $res = view($this->form_view(),$data)->render();
                   return response()->json($res);
                }
                return view("amicrud.table.form-page",$data);
-     
-             } else{
-     
-             // add form
-             $data = [
-                 'form_create_route' => $this->form_create_route(),
-                 'form_id' => $this->form_id(),
-                 'model_action' => 'Create',
-                 'crud_name' => $this->crud_name(),
-                 'form_field_names' => $this->form_field_names(),
-                 'form_view' => $this->form_view(),
-                 'formable' => $this->formable(),
-                 'page_layout' => $this->page_layout(),
-                 'form_update' => false,
-                 'form_select_items' => $this->form_select_items(),
-                 'custom_form_hidden_input' => $this->custom_form_hidden_input(),
-                 'controls' => $this->controls(),
-               ];
-               $data = array_merge($data,$this->additional_create_data());
-                 if ($request->ajax()) {
-                     $res = view($this->form_view(),$data)->render();
-                     return response()->json($res);  
-                 } 
-               return view("amicrud.table.form-page",$data);
-            }
          }
+
+         /**
+         * can be used to modify or pass more data to the model
+         */
+        public function modify_edit_model($model) : mixed
+        {
+              return  $model;
+        }
      
          public function additional_create_data():array
          {
-           return  $this->additional_edit_data??[];
+           return  $this->additional_create_data??[];
          }
      
          public function create(Request $request ) : mixed

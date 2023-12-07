@@ -2,7 +2,7 @@
      <div class="card">
         <div class="card-body">
          
-          @if($form_update)
+          @if($form_update&&!empty($model))
 
               <form action="{{amicrud_sign_url(route($form_create_route))}}" method="POST" class="amicrud {{isset($class)?$class:''}} w-100"
               enctype="multipart/form-data" id="{{$form_id}}">
