@@ -750,7 +750,6 @@ class AmiCrud extends Controller
                 $data['form_update'] = false;
                 $data['model_action'] = 'Create';
              }
-               dd($data['model']);
              $data = array_merge($data, [
                 'crud_name' => $this->crud_name(),
                 'form_create_route' => $this->form_create_route(),
