@@ -262,9 +262,14 @@ class AmiCrud extends Controller
     public $search_date_from; 
 
      /**
-     * @var mixed  model
+     * @var mixed  
      */
     public $modify_edit_model; 
+
+      /**
+     * @var mixed  
+     */
+    public $modified_model; 
 
       /**
      * @var mixed  Date Range
@@ -733,9 +738,10 @@ class AmiCrud extends Controller
               }
      
              $data = [];
-             $model= $this->model()->find($id);
+             $model =  $this->model()->find($id);
              if($model){
-                $model = $this->modify_edit_model($model);
+                $this->modified_model = $model;
+                $model = $this->modify_edit_model();
                 $data['model'] = $model;
                 $data['model_action'] = 'Update';
                 $data['form_update'] = true;
@@ -744,7 +750,7 @@ class AmiCrud extends Controller
                 $data['form_update'] = false;
                 $data['model_action'] = 'Create';
              }
-               
+               dd($data['model']);
              $data = array_merge($data, [
                 'crud_name' => $this->crud_name(),
                 'form_create_route' => $this->form_create_route(),
@@ -768,9 +774,9 @@ class AmiCrud extends Controller
          /**
          * can be used to modify or pass more data to the model
          */
-        public function modify_edit_model($model) : mixed
+        public function modify_edit_model() : mixed
         {
-              return  $model;
+              return  $this->modified_model??$this->model;
         }
      
          public function additional_create_data():array
