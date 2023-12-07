@@ -17,6 +17,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css">
     @endif
 
+    @if(config('amicrud.load_summernote'))
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.css" rel="stylesheet">
+    @endif
+
     <style>
         .amicrud-avatar-xs{
             width: 40px;
@@ -127,6 +131,18 @@
         });
     </script>
   @endif
+
+  @if(config('amicrud.load_summernote'))
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // Initialize
+            $(".summernote").summernote({
+                height: 150
+            });
+        });
+    </script>
+    @endif
 
 @include('amicrud::amicrud.table.js')
 

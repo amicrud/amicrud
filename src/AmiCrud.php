@@ -129,7 +129,7 @@ class AmiCrud extends Controller
     public $crud_name;
 
     /**
-     * @var \Illuminate\Database\Eloquent\Model Instance of the model for CRUD operations.
+     * @var \Illuminate\Database\Eloquent\Builder Custom query for the model. Allows for predefined conditions or joins.
      */
     public $model;
 
@@ -301,7 +301,7 @@ class AmiCrud extends Controller
      * @return mixed The model instance.
      */
 
-   public function model(): \Illuminate\Database\Eloquent\Model
+   public function model(): mixed
    {
        return $this->custom_model_query() ? $this->custom_model_query() : $this->model;
    }
@@ -770,6 +770,7 @@ class AmiCrud extends Controller
                  'custom_form_hidden_input' => $this->custom_form_hidden_input(),
                  'controls' => $this->controls(),
                ];
+               $data = array_merge($data,$this->additional_create_data());
                  if ($request->ajax()) {
                      $res = view($this->form_view(),$data)->render();
                      return response()->json($res);  
