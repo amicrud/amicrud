@@ -10,12 +10,7 @@
                 <div class="row mb-3 justify-content-center">
 
                     @php
-                        $issetSideBar = true;
-                    //     isset($sidebar) && (isset($categories)||isset($customer_types)||isset($expenditure_types) || 
-                    //     (
-                    //         (isset($branches)||isset($warehouses)||isset($factories))&&user_has_role(['admin','admin_user'])
-                    //     )
-                    // );
+                        $issetSideBar = (isset($sidebar)&&($sidebar));
                     @endphp
                     @if( $issetSideBar )
                     <div class="col-md-2">

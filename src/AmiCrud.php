@@ -57,6 +57,7 @@ class AmiCrud extends Controller
         'select_items' => [],
         'display_field' =>  true,
         'export_field' => true,
+        'fillable' => true,
 
     ],
     **/
@@ -624,7 +625,14 @@ class AmiCrud extends Controller
 
     public function export_view():mixed
     {
-       return $this->export_view ?? "amicrud::amicrud.table.export";
+       if ($this->export_view) {
+        return $this->export_view ;
+
+       }elseif(config('amicrud.export_view')){
+         return config('amicrud.export_view');
+       }else{
+         return "amicrud::amicrud.table.export";
+       }
     }
 
     public function add_model():mixed
