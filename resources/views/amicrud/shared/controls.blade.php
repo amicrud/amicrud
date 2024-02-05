@@ -9,7 +9,7 @@
 @endif
 
 @if(isset($cancel))
-    <button type="button" class="btn btn-secondary  cancel_btn"><i class="fa fa-times"></i> @if(is_bool($cancel)) Cancel @else {{$cancel}}  @endif </button>
+    <button type="button" class="btn btn-danger  cancel_btn"><i class="fa fa-times"></i> @if(is_bool($cancel)) Cancel @else {{$cancel}}  @endif </button>
 @endif
 
 @if(isset($list_cancel))

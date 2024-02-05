@@ -39,12 +39,16 @@
             {{-- @dd($show_actions,isset($edit_model),$edit_model) --}}
             @if(isset($edit_model)&&$edit_model)
             <div class="edit mr-2">
-                <button class="btn btn-sm btn-success edit-item-btn" data-url="{{amicrud_sign_url(route($form_edit_route,$c->id))}}" data-name="{{Str::singular($crud_name)}}">Edit</button>
+                <button class="btn btn-sm btn-success edit-item-btn" data-url="{{amicrud_sign_url(route($form_edit_route,$c->id))}}" data-name="{{Str::singular($crud_name)}}">
+                    @if(is_bool($edit_model)) Edit @else {{$edit_model}}  @endif
+                </button>
             </div>
             @endif
             @if(isset($delete_model)&&$delete_model)
             <div class="remove">
-                <button class="btn btn-sm btn-danger remove-item-btn"  data-url="{{amicrud_sign_url(route($form_delete_route,$c->id))}}" data-name="{{Str::singular($crud_name)}}">Remove</button>
+                <button class="btn btn-sm btn-danger remove-item-btn"  data-url="{{amicrud_sign_url(route($form_delete_route,$c->id))}}" data-name="{{Str::singular($crud_name)}}">
+                    @if(is_bool($delete_model)) Remove @else {{$delete_model}}  @endif
+                </button>
             </div>
             @endif
         </div>
