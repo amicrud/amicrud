@@ -1,4 +1,3 @@
-// Initialize the page
 $(document).ready(function() {
     let $token = $('meta[name="csrf-token"]').attr('content');
     let list_target_route = $('#table-data').attr('data-list_target_route'); 
@@ -176,6 +175,33 @@ $(document).ready(function() {
      $(document).on('click', 'a.page-link', function(e) {
             e.preventDefault();
             let url = $(this).attr('href');
+             // get the url params from one of the href in $("#exportGroup .dropdown-menu a") and pass it as the data for the ajax
+            let params = $(this).data();
+            const search = $('.search').val();
+            if (search) {
+                params.search = search;
+            }
+
+            const from_date = $('#fromDate').val();
+            const to_date = $('#toDate').val();
+            if (from_date) {
+                params.from_date = from_date;
+            }if (to_date) {
+                params.to_date = to_date;
+            }
+
+            const paginated_number = $('#paginated-number').val();
+            if (paginated_number) {
+                params.paginated_number = paginated_number;
+            }
+             
+            if (url.indexOf('?') > -1) {
+                url = url + '&';
+            } else {
+                url = url + '?';
+            }
+            url = url + $.param(params);
+
             $.ajax({
             url: url, // Replace with your Laravel route for fetching data
             type: 'GET',
