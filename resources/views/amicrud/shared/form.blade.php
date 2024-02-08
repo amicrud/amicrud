@@ -47,6 +47,17 @@
                   <code class=" error-response {{$field}}"></code>
                   </div>
 
+                  @elseif($form['type']=='readonly')
+                  <div class="form-group  col-md-{{$form['col']}}  ">
+                  <label for="form-control-label">{{  amicrud_form_labels($form_field_names[$field])}} 
+                     @if (in_array($form['validate_update'],["required"])||is_array($form['validate_update']))
+                     <span class="text-danger">*</span>
+                     @endif 
+                  </label>
+                  <input type="text" name="{{$field}}" id="{{$field}}" readonly value="{!! $model->{$field} !!}" class='form-control'>
+                  <code class=" error-response {{$field}}"></code>
+                  </div>
+
                   @elseif($form['type']=='text_readonly')
                   <div class="form-group  col-md-{{$form['col']}}  ">
                   <label for="form-control-label">{{  amicrud_form_labels($form_field_names[$field])}}
@@ -307,6 +318,17 @@
                  @forelse($formable as $field => $form)
 
                  @if($form['type']=='text')
+                 <div class="form-group col-md-{{$form['col']}} ">
+                 <label for="form-control-label">{{ amicrud_form_labels($form_field_names[$field])}}
+                 @if (in_array($form['validate_create'],["required"])||is_array($form['validate_create']))
+                 <span class="text-danger">*</span>
+                 @endif 
+               </label>
+                 <input type="text" name="{{$field}}" id="{{$field}}" value="" class='form-control'>
+                 <code class="error-response {{$field}}"></code>
+                 </div>
+
+                 @elseif($form['type']=='readonly')
                  <div class="form-group col-md-{{$form['col']}} ">
                  <label for="form-control-label">{{ amicrud_form_labels($form_field_names[$field])}}
                  @if (in_array($form['validate_create'],["required"])||is_array($form['validate_create']))
