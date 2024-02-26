@@ -141,9 +141,18 @@ $(document).ready(function() {
                                 }
                                 if(data.reload)
                                 {
-                                    setTimeout(function() {
-                                    window.location.reload();
-                                    },2000);
+                                    if (data.link) {
+                                        setTimeout(function() {
+                                        window.location.href = data.link
+                                        },2000);
+                                        
+                                    }else{
+                                        
+                                        setTimeout(function() {
+                                            window.location.reload();
+                                            },2000);
+                                    }
+                                   
                                 }
                         },
                     });

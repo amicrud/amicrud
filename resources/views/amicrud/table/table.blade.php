@@ -36,7 +36,6 @@
     @if(isset($show_actions) && $show_actions)
     <td>
         <div class="d-flex gap-2">
-            {{-- @dd($show_actions,isset($edit_model),$edit_model) --}}
             @if(isset($edit_model)&&$edit_model)
             <div class="edit mr-2">
                 <button class="btn btn-sm btn-success edit-item-btn" data-url="{{amicrud_sign_url(route($form_edit_route,$c->id))}}" data-name="{{Str::singular($crud_name)}}">
@@ -51,15 +50,16 @@
                 </button>
             </div>
             @endif
+
+            @if(isset($view_url) && $view_url)
+            <div>
+              <a class="btn btn-sm btn-primary" href="{{route($view_url,['id'=>$c->id])}}">
+                @if (isset($view_url_label)) {{$view_url_label}} @else View @endif
+            </a>
+            </div>
+            @endif
+
         </div>
-    </td>
-    @endif
-   
-    @if(isset($view_url) && $view_url)
-    <td>
-      <a class="btn btn-sm btn-primary" href="{{route($view_url,['id'=>$c->id])}}">
-        @if (isset($label)) {{$label}} @else View @endif
-    </a>
     </td>
     @endif
  
