@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\UploadedFile;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\View;
-use Dompdf\Dompdf;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 /**
  * Class AmiCrud
@@ -1118,18 +1118,15 @@ class AmiCrud extends Controller
 
             } else{
             $data['export_type'] = 'pdf';
-            $html = view($view, $data);
+            // $html = view($view, $data);
     
-            if (class_exists(Dompdf::class)) {
+            if (class_exists(Pdf::class)) {
 
-                $dompdf = new Dompdf();
-                $dompdf->loadHtml($html);
-                $dompdf->setPaper('A4', 'portrait');
-                $dompdf->render();
-                $dompdf->stream($name.'.pdf');
+                $pdf = Pdf::loadView($view, $data);
+                return $pdf->download('invoice.pdf');
 
             } else {
-                return ' PDF package not installed, install Dompdf via composer.';
+                return ' PDF package not installed, install Laravel Dompdf via composer require barryvdh/laravel-dompdf.';
             }
 
            }

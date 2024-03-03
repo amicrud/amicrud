@@ -26,6 +26,7 @@
                     <td>
                     @if ($formable[$column_name]['type']=='file')
                     <div class="flex-shrink-0">
+                        <img src="{{public_path($c->{$column_name})}}" alt="" style="width: 30px; height: 30px">
                         <a href="{{asset($c->{$column_name})}}" target="_blank">
                         Open File
                         </a>
