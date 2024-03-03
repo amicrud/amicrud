@@ -45,7 +45,7 @@ class AmiCrud extends Controller
    /** 
     * @var array $formable An array that defines the fields to be displayed and validated in forms.
      'name'=> [
-        'type'=>'text',
+        'type'=>'text', // text_readonly is for view only
         'col'=> '4',
         'validate_create' => 'required',
         'validate_update' => 'required',
@@ -1103,6 +1103,7 @@ class AmiCrud extends Controller
 
         if ($create&&$create['export-type']=='excel') {
 
+            $data['export_type'] = 'excel';
             $exportData = View::make($view,$data);
             if (class_exists(Excel::class)) {
                 return Excel::download(new ViewExport($exportData), $name . '.xlsx');
@@ -1111,11 +1112,12 @@ class AmiCrud extends Controller
             }
     
            }elseif ($create && $create['export-type'] == 'csv') {
-
+            $data['export_type'] = 'csv';
             // CSV export logic
             return Excel::download(new CsvExport($data), $name . '.csv');
 
             } else{
+            $data['export_type'] = 'pdf';
             $html = view($view, $data);
     
             if (class_exists(Dompdf::class)) {
