@@ -1,60 +1,5 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exports</title>
-    <style>
-        body {
-    font-family: Arial, sans-serif;
-     font-size: 12px; /* Adjust as needed */
-}
 
-.table-container {
-    max-width: 100%;
-    margin-bottom: 5px;
-}
-
-th, td {
-    word-wrap: break-word;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 5px;
-}
-
-table, th, td {
-    border: 1px solid #ddd;
-}
-
-th, td {
-    padding: 5px;
-    text-align: left;
-}
-
-th {
-    background-color: #f2f2f2;
-}
-
-.company-header {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.company-logo {
-    max-width: 30px;
-    max-height: 30px;
-}
-
-    </style>
-</head>
-<body>
-
-<div class="table-container">
-<div class="table-responsive table-card mt-3 mb-1">
     <table class="table align-middle table-nowrap" id="amicrudTable" >
         <!-- Table Head -->
         <thead class="table-light">
@@ -98,16 +43,3 @@ th {
             @endforelse
         </tbody>
    </table>
-</div>
-</div>
-
-<!-- Add more tables or sections as needed -->
-
-<!-- Page break for PDF export -->
-{{-- <div class="page-break"></div> --}}
-
-<!-- Another section or table -->
-
-</body>
-</html>
-
