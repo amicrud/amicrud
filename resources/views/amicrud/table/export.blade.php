@@ -53,10 +53,6 @@ th {
 </head>
 <body>
 
-<div class="company-header">
-    <p class="title-">Date: {{date('d-M-Y')}}</p>
-</div>
-
 <div class="table-container">
 <div class="table-responsive table-card mt-3 mb-1">
     <table class="table align-middle table-nowrap" id="amicrudTable" >
