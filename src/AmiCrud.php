@@ -1099,7 +1099,8 @@ class AmiCrud extends Controller
         $name = 'export';
         $view = $this->export_view();
         $data = $create['data'];
-        $data['title'] = ucfirst($this->crud_name()). ' Report';
+
+        $data['title'] = isset($data['title'])&&$data['title'] ? $data['title'] : ucfirst($this->crud_name()). ' Report';
 
         if ($create&&$create['export-type']=='excel') {
 
